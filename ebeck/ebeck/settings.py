@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'ebeck.pub'
 ]
 
 MIDDLEWARE = [
@@ -69,7 +70,14 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'ebeck.wsgi.application'
 
+TEMPLATE_DIRS = (
+  # Put strings here, like &quot;/home/html/django_templates&quot;
+  # Always use forward slashes, even on Windows.
+  # Don't forget to use absolute paths, not relative paths.
+  'C:/Users/moham/Documents/GitHub/ErgoWebProject/ebeck/pub/templates'
+  )
 
+  
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 

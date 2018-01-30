@@ -31,8 +31,8 @@ def developpement_personnel(request):
     #latest_question_list = Question.objects.order_by('-pub_date')[:5]
     #template = loader.get_template('polls/index.html')
     #context = {'latest_question_list': latest_question_list}
-    gilles_pays = Personne.objects.get(id=1).pays
-    context = {'gilles_pays':gilles_pays}
+    georges_pays = Personne.objects.get(id=1).pays
+    context = {'georges_pays': georges_pays}
     return render(request, 'colonnes/developpement_personnel.html', context)
 
 def parametres(request):

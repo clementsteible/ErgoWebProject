@@ -1,3 +1,5 @@
 from django.contrib import admin
+from .models import Personne
 
-# Register your models here.
+#Importation du modèle Personne (Utilisateur/Thérapeute) dans l'interface admin de Django
+admin.site.register(Personne)

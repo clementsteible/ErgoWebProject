@@ -37,3 +37,6 @@ class Personne(models.Model):
     ville = models.CharField(max_length=30, help_text = "Ville")
     langue = models.CharField(max_length=30, help_text = "Nom")
     adresse_mail = models.EmailField(max_length=254, blank=False, help_text = "Nom")
+
+    def __str__ (self):
+        return '%s %s' % (self.prenom1, self.nom)

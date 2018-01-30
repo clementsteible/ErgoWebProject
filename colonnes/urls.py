@@ -3,7 +3,7 @@ from . import views
 
 urlpatterns = [
     #Menu principal de l'application web
-    path('', views.menu, name='menu'),
+    path('', views.deverouillage, name='deverouillage'),
     #Page permettant d'ajouter une nouvelle situation complète
     path('nouvelle_entree/', views.nouvelle_entree, name='nouvelle_entree'),
     #Page Journal, permet de consulter les colonnes de Beck déjà complétées

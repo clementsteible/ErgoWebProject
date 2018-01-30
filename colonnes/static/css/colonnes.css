@@ -1,3 +1,5 @@
+
+/*Les classes, id et autres éléments ci-dessous correspondent au template de base*/
 header {
 
 text-align : center;
@@ -9,6 +11,10 @@ body {
 
 background-color: #FFFFFF;
 
+}
+
+#bg_base{
+  background-color: #3399FF;
 }
 
 #logo_ebeck{
@@ -47,4 +53,34 @@ border: none;
 
 #bouton_parametres{
   background-image: url("images/bouton_parametres.png");
+}
+
+/*Les classes, id et autres éléments ci-dessous correspondent à la page
+de déverouillage de l'application web */
+.deverouillage{
+  text-align: center;
+  background-color: #3399FF;
+  border: none;
+}
+
+#bg_deverouillage{
+  background-color: #3399FF;
+}
+
+#slide_bouton{
+  background-image: url("images/slide_bouton.png");
+  width: 400px;
+  height: 150px;
+  padding-top: 50px;
+}
+
+#nouvelle_bouton{
+    background-image: url("images/nouvelle_bouton.png");
+    width: 230px;
+    height: 230px;
+    /*padding: 50px;*/
+}
+
+#logo_colonnes_ebeck{
+  padding: 50px;
 }

@@ -2,11 +2,11 @@ from django.shortcuts import render
 
 # Create your views here.
 
-def menu(request):
+def deverouillage(request):
     #latest_question_list = Question.objects.order_by('-pub_date')[:5]
     #template = loader.get_template('polls/index.html')
     #context = {'latest_question_list': latest_question_list}
-    return render(request, 'colonnes/menu.html', {})#context)
+    return render(request, 'colonnes/deverouillage.html', {})#context)
 
 def nouvelle_entree(request):
     #latest_question_list = Question.objects.order_by('-pub_date')[:5]

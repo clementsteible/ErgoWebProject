@@ -1,0 +1,30 @@
+{% load staticfiles %}
+<html id ="bg_deverouillage">
+
+    <head>
+      	<meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title id ="titre_page">eBeck</title>
+        <link rel="stylesheet" href="{% static 'css/colonnes.css' %}">
+    </head>
+
+    <body>
+
+    <div class="deverouillage" id ="logo_colonnes_ebeck">
+      <img src="{% static 'css/images/logo_colonnes_ebeck.png' %}" alt="LOGO">
+    </div>
+
+    <div class="deverouillage" id = "deverouillage_nouvelle">
+        <a href="{% url 'nouvelle_entree' %}">
+        <input type="button" class="boutons" id="nouvelle_bouton"></a>
+    </div>
+
+    <div class="deverouillage" id = "slide">
+        <a href="{% url 'journal' %}">
+        <input type="button" class="boutons" id="slide_bouton"></a>
+    </div>
+
+    </body>
+    
+
+</html>

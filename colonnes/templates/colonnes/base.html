@@ -2,14 +2,22 @@
 <html>
     <head>
       	<meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <title id ="titre_page">eBeck</title>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext" type="text/css">
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
         <link rel="stylesheet" href="{% static 'css/colonnes.css' %}">
     </head>
+
+    <header>
+      <img id = "logo_ebeck" src="{% static 'css/images/ebeck.png' %}" alt="E-Beck">
+      <div id ="boutons_menu">
+        <input onClick="nouvelle()" type="button" class="boutons" id="bouton_nouvelle">
+        <input onClick="journal()" type="button" class="boutons" id="bouton_journal">
+        <input onClick="statistiques()" type="button" class="boutons" id="bouton_statistiques">
+        <input onClick="developpement()" type="button" class="boutons" id="bouton_developpement">
+        <input onClick="parametres()" type="button" class="boutons" id="bouton_parametres">
+    </header>
+
     <body>
-      <p id="douce_poésie"> ICI C'EST LE TEMPLATE GLOBAL !</p>
 
       <div class="row">
           <div class="col-md-8">
@@ -17,6 +25,7 @@
           {% endblock %}
           </div>
 
-
+      <script type="text/javascript" src="{% static "js/jquery-3.2.1.js" %}"></script>
+      <script type="text/javascript" src="{% static "js/students.js" %}"></script>
     </body>
 </html>

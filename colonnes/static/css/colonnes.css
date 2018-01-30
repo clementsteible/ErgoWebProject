@@ -1,11 +1,50 @@
+header {
+
+text-align : center;
+background-color: #3399FF;
+
+}
+
 body {
 
-}
-
-#texte_pensee {
+background-color: #FFFFFF;
 
 }
 
-#titre_page {
+#logo_ebeck{
+padding: 5px;
+text-align : center;
 
+}
+
+.boutons
+{
+width: 76px;
+height: 59px;
+padding: 0px;
+border: none;
+}
+
+#boutons_menu{
+  padding: 0px;
+}
+
+#bouton_nouvelle{
+  background-image: url("images/bouton_nouvelle.png");
+}
+
+#bouton_journal{
+  background-image: url("images/bouton_journal.png");
+}
+
+#bouton_statistiques{
+  background-image: url("images/bouton_statistiques.png");
+}
+
+#bouton_developpement{
+  background-image: url("images/bouton_developpement.png");
+}
+
+#bouton_parametres{
+  background-image: url("images/bouton_parametres.png");
 }

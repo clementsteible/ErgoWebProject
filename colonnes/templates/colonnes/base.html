@@ -10,11 +10,23 @@
     <header>
       <img id = "logo_ebeck" src="{% static 'css/images/ebeck.png' %}" alt="E-Beck">
       <div id ="boutons_menu">
-        <input onClick="nouvelle()" type="button" class="boutons" id="bouton_nouvelle">
-        <input onClick="journal()" type="button" class="boutons" id="bouton_journal">
-        <input onClick="statistiques()" type="button" class="boutons" id="bouton_statistiques">
-        <input onClick="developpement()" type="button" class="boutons" id="bouton_developpement">
-        <input onClick="parametres()" type="button" class="boutons" id="bouton_parametres">
+
+        <a href="{% url 'nouvelle_entree' %}">
+        <input onClick="nouvelle()" type="button" class="boutons" id="bouton_nouvelle"></a>
+
+        <a href="{% url 'journal' %}">
+        <input onClick="journal()" type="button" class="boutons" id="bouton_journal"></a>
+
+        <a href="{% url 'statistiques' %}">
+        <input onClick="statistiques()" type="button" class="boutons" id="bouton_statistiques"></a>
+
+        <a href="{% url 'developpement_personnel' %}">
+        <input onClick="developpement()" type="button" class="boutons" id="bouton_developpement"></a>
+
+        <a href="{% url 'parametres' %}">
+        <input onClick="parametres()" type="button" class="boutons" id="bouton_parametres"></a>
+
+
     </header>
 
     <body>

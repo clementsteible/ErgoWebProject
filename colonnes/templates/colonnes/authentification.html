@@ -17,6 +17,7 @@
 
     <body id="body_authentification">
 
+<<<<<<< HEAD
     <div id="content">
       <div id="formulaireAuthentification">
         <form method="POST" class="post-form">{% csrf_token %}
@@ -24,6 +25,12 @@
             <button type="submit" class="save btn btn-default">Save</button>
         </form>
       </div>
+=======
+    <form method="POST" class="post-form">{% csrf_token %}
+        {{ formAuthentification.as_p }}
+        <button type="submit" class="save btn btn-default">S'authentifier'</button>
+    </form>
+>>>>>>> bad443333ca6331922f55255bbd6799fb286d394
 
       <div id="valider_authentification">
 

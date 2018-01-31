@@ -8,23 +8,23 @@
         <link rel="stylesheet" href="{% static 'css/colonnes.css' %}">
     </head>
 
-    <body>
+    <body id ='deverouillage_body'>
 
-    <div class="deverouillage" id ="logo_colonnes_ebeck">
-      <img src="{% static 'css/images/logo_colonnes_ebeck.png' %}" alt="LOGO">
-    </div>
+      <div class="deverouillage" id ="logo_colonnes_ebeck">
+        <img src="{% static 'images/logo_colonnes_ebeck.png' %}" alt="LOGO">
+      </div>
 
-    <div class="deverouillage" id = "deverouillage_nouvelle">
-        <a href="{% url 'nouvelle_entree' %}">
-        <input type="button" class="boutons" id="nouvelle_bouton"></a>
-    </div>
+      <div class="deverouillage" id = "deverouillage_nouvelle">
+          <a href="{% url 'nouvelle_entree' %}">
+          <input type="button" class="boutons" id="nouvelle_bouton"></a>
+      </div>
 
-    <div class="deverouillage" id = "slide">
-        <a href="{% url 'journal' %}">
-        <input type="button" class="boutons" id="slide_bouton"></a>
-    </div>
+      <div class="deverouillage" id = "slide">
+          <a href="{% url 'authentification' %}">
+          <input type="button" class="boutons" id="slide_bouton"></a>
+      </div>
 
     </body>
-    
+
 
 </html>

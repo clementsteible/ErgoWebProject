@@ -36,23 +36,23 @@ border: none;
 }
 
 #bouton_nouvelle{
-  background-image: url("images/bouton_nouvelle.png");
+  background-image: url("../images/bouton_nouvelle.png");
 }
 
 #bouton_journal{
-  background-image: url("images/bouton_journal.png");
+  background-image: url("../images/bouton_journal.png");
 }
 
 #bouton_statistiques{
-  background-image: url("images/bouton_statistiques.png");
+  background-image: url("../images/bouton_statistiques.png");
 }
 
 #bouton_developpement{
-  background-image: url("images/bouton_developpement.png");
+  background-image: url("../images/bouton_developpement.png");
 }
 
 #bouton_parametres{
-  background-image: url("images/bouton_parametres.png");
+  background-image: url("../images/bouton_parametres.png");
 }
 
 /*Les classes, id et autres éléments ci-dessous correspondent à la page
@@ -63,19 +63,23 @@ de déverouillage de l'application web */
   border: none;
 }
 
+#deverouillage_body{
+  background-color: #3399FF;
+}
+
 #bg_deverouillage{
   background-color: #3399FF;
 }
 
 #slide_bouton{
-  background-image: url("images/slide_bouton.png");
+  background-image: url("../images/slide_bouton.png");
   width: 400px;
   height: 150px;
   padding-top: 50px;
 }
 
 #nouvelle_bouton{
-    background-image: url("images/nouvelle_bouton.png");
+    background-image: url("../images/nouvelle_bouton.png");
     width: 230px;
     height: 230px;
     /*padding: 50px;*/
@@ -83,4 +87,18 @@ de déverouillage de l'application web */
 
 #logo_colonnes_ebeck{
   padding: 50px;
+}
+
+/*Les classes, id et autres éléments ci-dessous correspondent à la page
+d'authentification de l'application web*/
+#body_authentification{
+  background-color: #3399FF;
+}
+
+#titre_authentification{
+  font-size: 50px;
+  color: white;
+  border-left: 6px solid yellow;
+  background-color: lightblue;
+  padding: 5px;
 }

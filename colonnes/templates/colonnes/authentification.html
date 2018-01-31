@@ -1,0 +1,38 @@
+{% load staticfiles %}
+<html>
+
+    <head>
+      	<meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title id ="titre_page">eBeck</title>
+        <link rel="stylesheet" href="{% static 'css/colonnes.css' %}">
+    </head>
+
+    <header>
+
+      <img id = "logo_ebeck" src="{% static 'images/ebeck.png' %}" alt="E-Beck">
+      <div id="titre_authentification">Authentification</div>
+
+    </header>
+
+    <body id="body_authentification">
+
+    <div id="valider_authentification">
+
+      <a href="{% url 'journal' %}">
+        <input type="button" class="boutons" value="valider">
+      </a>
+
+    </div>
+
+    <div id="bouton_inscription">
+
+      <a href="{% url 'inscription' %}">
+        <input type="button" class="boutons" value="inscription">
+      </a>
+
+    </div>
+
+    </body>
+
+</html>

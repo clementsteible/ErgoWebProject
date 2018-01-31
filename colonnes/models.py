@@ -30,16 +30,16 @@ class Personne(models.Model):
         choices = STATUT_CHOICES,
         default = UTILISATEUR,
     )
-    nom = models.CharField(max_length=30, blank=False)
-    prenom = models.CharField(max_length=30, default='', blank=False)
-    date_de_naissance = models.CharField(max_length=8, blank=False)
-    pays = models.CharField(max_length=30, blank=False)
+    nom = models.CharField(max_length=30)
+    prenom = models.CharField(max_length=30, default='')
+    date_de_naissance = models.CharField(max_length=8)
+    pays = models.CharField(max_length=30)
     ville = models.CharField(max_length=30)
     langue = models.CharField(max_length=30)
-    adresse_mail = models.EmailField(max_length=254, blank=False)
+    adresse_mail = models.EmailField(max_length=254)
     mot_de_passe = models.CharField(max_length=30, default='')
     def __str__ (self):
-        return '%s %s' % (self.prenom1, self.nom)
+        return '%s %s' % (self.prenom, self.nom)
 
 
 """

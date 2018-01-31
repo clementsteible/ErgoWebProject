@@ -66,11 +66,16 @@ de déverouillage de l'application web */
     background-image: url("../images/nouvelle_bouton.png");
     width: 230px;
     height: 230px;
+    text-align: center;
     /*padding: 50px;*/
 }
 
 #logo_colonnes_ebeck{
   padding: 50px;
+}
+
+#deverouillage_body{
+  text-align: center;
 }
 
 /*Les classes, id et autres éléments ci-dessous correspondent à la page

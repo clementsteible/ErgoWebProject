@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from colonnes.models import Personne
 from .forms import InscriptionForm, AuthentificationForm
+from django.shortcuts import redirect
 
 # Create your views here.
 
@@ -44,6 +45,14 @@ def authentification(request):
     return render(request, 'colonnes/authentification.html', {'formAuthentification':formAuthentification})
 
 def inscription(request):
-    #On ajoute le formulaire d'inscription à la vue
-    formInscription = InscriptionForm()
+    formAuthentification = AuthentificationForm()
+    if request.method == "POST":
+        formInscription = InscriptionForm(request.POST)
+        if formInscription.is_valid():
+            personne = formInscription.save(commit=False)
+            personne.save()
+            return render(request, 'colonnes/authentification.html', {'formAuthentification':formAuthentification})
+    else :
+        #On ajoute le formulaire d'inscription à la vue
+        formInscription = InscriptionForm(request.POST)
     return render(request, 'colonnes/inscription.html', {'formInscription':formInscription})

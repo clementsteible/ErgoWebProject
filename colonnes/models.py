@@ -39,6 +39,7 @@ class Personne(models.Model):
     langue = models.CharField(max_length=30, help_text = "Nom")
     adresse_mail = models.EmailField(max_length=254, blank=False, help_text = "Nom")
 
+<<<<<<< HEAD
 
 
 """
@@ -84,3 +85,7 @@ class Conseil(models.model):
         
                 
         """
+=======
+    def __str__ (self):
+        return '%s %s' % (self.prenom1, self.nom)
+>>>>>>> 6bd836381bbf8975175f287026ac15172e378ecf

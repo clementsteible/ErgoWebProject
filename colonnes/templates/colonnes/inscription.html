@@ -17,16 +17,18 @@
 
     <body id="body_authentification">
 
-    <form method="POST" class="post-form">{% csrf_token %}
-        {{ formInscription.as_p }}
-        <button type="submit" class="save btn btn-default">Save</button>
-    </form>
+    <div id="content">
 
-    <div id="valider_authentification">
+      <div id="formulaireInscription">
+        <form method="POST" class="post-form">{% csrf_token %}
+            {{ formInscription.as_p }}
+            <button type="submit" id="submit_inscription_button" class="save btn btn-default"> S'inscrire </button>
+        </form>
+      </div>
 
-      <a href="{% url 'authentification' %}">
-        <input type="button" class="boutons" value="s'authentifier">
-      </a>
+
+        <a href="{% url 'authentification' %}" id="authentifier_inscription"> S'authentifier
+        </a>
 
     </div>
 

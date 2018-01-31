@@ -17,25 +17,29 @@
 
     <body id="body_authentification">
 
-    <form method="POST" class="post-form">{% csrf_token %}
-        {{ formAuthentification.as_p }}
-        <button type="submit" class="save btn btn-default">Save</button>
-    </form>
+    <div id="content">
+      <div id="formulaireAuthentification">
+        <form method="POST" class="post-form">{% csrf_token %}
+            {{ formAuthentification.as_p }}
+            <button type="submit" class="save btn btn-default">Save</button>
+        </form>
+      </div>
 
-    <div id="valider_authentification">
+      <div id="valider_authentification">
 
-      <a href="{% url 'journal' %}">
-        <input type="button" class="boutons" value="valider">
-      </a>
+        <a href="{% url 'journal' %}">
+          <input type="button" id="valider_auth_button" class="boutons" value="Valider">
+        </a>
 
-    </div>
+      </div>
 
-    <div id="bouton_inscription">
+      <div id="bouton_inscription">
 
-      <a href="{% url 'inscription' %}">
-        <input type="button" class="boutons" value="inscription">
-      </a>
+        <a href="{% url 'inscription' %}">
+          <input type="button" id="inscription_button" class="boutons" value="Inscription">
+        </a>
 
+      </div>
     </div>
 
     </body>

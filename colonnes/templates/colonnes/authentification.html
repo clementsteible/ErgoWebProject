@@ -17,6 +17,11 @@
 
     <body id="body_authentification">
 
+    <form method="POST" class="post-form">{% csrf_token %}
+        {{ formAuthentification.as_p }}
+        <button type="submit" class="save btn btn-default">Save</button>
+    </form>
+
     <div id="valider_authentification">
 
       <a href="{% url 'journal' %}">

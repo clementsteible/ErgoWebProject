@@ -31,14 +31,13 @@ class Personne(models.Model):
         default = UTILISATEUR,
     )
     nom = models.CharField(max_length=30, blank=False, help_text = "Nom")
-    prenom1 = models.CharField(max_length=30, blank=False, help_text = "Prénom")
-    prenom2 = models.CharField(max_length=30, help_text = "Deuxième Prénom")
+    prenom = models.CharField(max_length=30, default='', blank=False, help_text = "Prénom")
     date_de_naissance = models.CharField(max_length=8, blank=False, help_text = "Date de Naissance")
     pays = models.CharField(max_length=30, blank=False, help_text = "Pays de Résidence")
     ville = models.CharField(max_length=30, help_text = "Ville")
     langue = models.CharField(max_length=30, help_text = "Nom")
-    adresse_mail = models.EmailField(max_length=254, blank=False, help_text = "Nom")
-
+    adresse_mail = models.EmailField(max_length=254, blank=False)
+    mot_de_passe = models.CharField(max_length=30, default='')
     def __str__ (self):
         return '%s %s' % (self.prenom1, self.nom)
 

@@ -44,14 +44,11 @@ def parametres(request):
 
 
 def authentification(request):
-    #latest_question_list = Question.objects.order_by('-pub_date')[:5]
-    #template = loader.get_template('polls/index.html')
-    #context = {'latest_question_list': latest_question_list}
-    return render(request, 'colonnes/authentification.html', {})
+    #On ajoute le formulaire d'authentification à la vue
+    formAuthentification = AuthentificationForm()
+    return render(request, 'colonnes/authentification.html', {'formAuthentification':formAuthentification})
 
 def inscription(request):
-    #latest_question_list = Question.objects.order_by('-pub_date')[:5]
-    #template = loader.get_template('polls/index.html')
-    #context = {'latest_question_list': latest_question_list}
+    #On ajoute le formulaire d'inscription à la vue
     formInscription = InscriptionForm()
     return render(request, 'colonnes/inscription.html', {'formInscription':formInscription})

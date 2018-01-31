@@ -30,12 +30,12 @@ class Personne(models.Model):
         choices = STATUT_CHOICES,
         default = UTILISATEUR,
     )
-    nom = models.CharField(max_length=30, blank=False, help_text = "Nom")
-    prenom = models.CharField(max_length=30, default='', blank=False, help_text = "Prénom")
-    date_de_naissance = models.CharField(max_length=8, blank=False, help_text = "Date de Naissance")
-    pays = models.CharField(max_length=30, blank=False, help_text = "Pays de Résidence")
-    ville = models.CharField(max_length=30, help_text = "Ville")
-    langue = models.CharField(max_length=30, help_text = "Nom")
+    nom = models.CharField(max_length=30, blank=False)
+    prenom = models.CharField(max_length=30, default='', blank=False)
+    date_de_naissance = models.CharField(max_length=8, blank=False)
+    pays = models.CharField(max_length=30, blank=False)
+    ville = models.CharField(max_length=30)
+    langue = models.CharField(max_length=30)
     adresse_mail = models.EmailField(max_length=254, blank=False)
     mot_de_passe = models.CharField(max_length=30, default='')
     def __str__ (self):

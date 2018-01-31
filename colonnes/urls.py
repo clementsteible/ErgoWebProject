@@ -14,4 +14,8 @@ urlpatterns = [
     path('developpement_personnel/', views.developpement_personnel, name='developpement_personnel'),
     #Page des paramètres de l'application
     path('parametres/', views.parametres, name='parametres'),
+    #Page d'authentification
+    path('authentification/', views.authentification, name='authentification'),
+    #Page d'authentification
+    path('inscription/', views.inscription, name='inscription'),
 ]

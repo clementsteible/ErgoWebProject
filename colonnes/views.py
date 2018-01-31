@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from colonnes.models import Personne
+from .forms import InscriptionForm, AuthentificationForm
 
 # Create your views here.
 
@@ -40,3 +41,17 @@ def parametres(request):
     #template = loader.get_template('polls/index.html')
     #context = {'latest_question_list': latest_question_list}
     return render(request, 'colonnes/parametres.html', {})
+
+
+def authentification(request):
+    #latest_question_list = Question.objects.order_by('-pub_date')[:5]
+    #template = loader.get_template('polls/index.html')
+    #context = {'latest_question_list': latest_question_list}
+    return render(request, 'colonnes/authentification.html', {})
+
+def inscription(request):
+    #latest_question_list = Question.objects.order_by('-pub_date')[:5]
+    #template = loader.get_template('polls/index.html')
+    #context = {'latest_question_list': latest_question_list}
+    formInscription = InscriptionForm()
+    return render(request, 'colonnes/inscription.html', {'formInscription':formInscription})

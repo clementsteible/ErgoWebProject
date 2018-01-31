@@ -39,7 +39,8 @@ class Personne(models.Model):
     langue = models.CharField(max_length=30, help_text = "Nom")
     adresse_mail = models.EmailField(max_length=254, blank=False, help_text = "Nom")
 
-<<<<<<< HEAD
+    def __str__ (self):
+        return '%s %s' % (self.prenom1, self.nom)
 
 
 """
@@ -61,17 +62,17 @@ class Emotion(models.model):
         id_tag = models.CharField(max_length=30, blank=False, help_text = "Nom")
         statut_emo = models.CharField(max_length=30, blank=False, help_text = "Nom")
         intensite = models.IntegerField(help_text = "Intensité de l'émotion")
-    
-    
-    
-    
+
+
+
+
 class Tag(models.model):
 
         id_ut = models.CharField(max_length=30, blank=False, help_text = "Nom")
         id_col = models.CharField(max_length=30, blank=False, help_text = "Nom")
         nom_tag = models.CharField(max_length=30, blank=False, help_text = "Entrez un Tag")
         type_tag = models.CharField(max_length=30, blank=False, help_text = "Nom")
-    
+
 
  class Lien_tag_colonne(models.model):
 
@@ -82,10 +83,6 @@ class Conseil(models.model):
 
         type_conseil = models.CharField(max_length=30, blank=False, help_text = "Nom")
         contenu_conseil = models.CharField(max_length=30, blank=False, help_text = "Nom")
-        
-                
+
+
         """
-=======
-    def __str__ (self):
-        return '%s %s' % (self.prenom1, self.nom)
->>>>>>> 6bd836381bbf8975175f287026ac15172e378ecf

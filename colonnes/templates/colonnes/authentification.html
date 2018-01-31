@@ -8,29 +8,22 @@
         <link rel="stylesheet" href="{% static 'css/colonnes.css' %}">
     </head>
 
-    <header>
+    <header class="couleur_bg">
 
       <img id = "logo_ebeck" src="{% static 'images/ebeck.png' %}" alt="E-Beck">
       <div id="titre_authentification">Authentification</div>
 
     </header>
 
-    <body id="body_authentification">
+    <body class="couleur_bg">
 
-<<<<<<< HEAD
     <div id="content">
       <div id="formulaireAuthentification">
         <form method="POST" class="post-form">{% csrf_token %}
             {{ formAuthentification.as_p }}
-            <button type="submit" class="save btn btn-default">Save</button>
+            <button type="submit" class="save btn btn-default">S'authentifier</button>
         </form>
       </div>
-=======
-    <form method="POST" class="post-form">{% csrf_token %}
-        {{ formAuthentification.as_p }}
-        <button type="submit" class="save btn btn-default">S'authentifier'</button>
-    </form>
->>>>>>> bad443333ca6331922f55255bbd6799fb286d394
 
       <div id="valider_authentification">
 

@@ -8,24 +8,15 @@
         <link rel="stylesheet" href="{% static 'css/colonnes.css' %}">
     </head>
 
-    <header>
+    <header class="couleur_bg">
 
       <img id = "logo_ebeck" src="{% static 'images/ebeck.png' %}" alt="E-Beck">
       <div id="titre_authentification">Inscription</div>
 
     </header>
 
-    <body id="body_authentification">
-<<<<<<< HEAD
+    <body class="couleur_bg" id="body_authentification">
 
-    <div id="content">
-=======
-    
-    <form method="POST" class="post-form">{% csrf_token %}
-        {{ formInscription.as_p }}
-        <button type="submit" class="save btn btn-default">S'inscrire</button>
-    </form>
->>>>>>> bad443333ca6331922f55255bbd6799fb286d394
 
       <div id="formulaireInscription">
         <form method="POST" class="post-form">{% csrf_token %}

@@ -1,20 +1,13 @@
+/* Classe pour la couleur de fond*/
+.couleur_bg{
+  background-color: #3399FF;
+}
 
 /*Les classes, id et autres éléments ci-dessous correspondent au template de base*/
 header {
 
 text-align : center;
-background-color: #3399FF;
 
-}
-
-body {
-
-background-color: #FFFFFF;
-
-}
-
-#bg_base{
-  background-color: #3399FF;
 }
 
 #logo_ebeck{
@@ -59,16 +52,7 @@ border: none;
 de déverouillage de l'application web */
 .deverouillage{
   text-align: center;
-  background-color: #3399FF;
   border: none;
-}
-
-#deverouillage_body{
-  background-color: #3399FF;
-}
-
-#bg_deverouillage{
-  background-color: #3399FF;
 }
 
 #slide_bouton{
@@ -82,6 +66,7 @@ de déverouillage de l'application web */
     background-image: url("../images/nouvelle_bouton.png");
     width: 230px;
     height: 230px;
+    text-align: center;
     /*padding: 50px;*/
 }
 
@@ -89,11 +74,12 @@ de déverouillage de l'application web */
   padding: 50px;
 }
 
+#deverouillage_body{
+  text-align: center;
+}
+
 /*Les classes, id et autres éléments ci-dessous correspondent à la page
 d'authentification de l'application web*/
-#body_authentification{
-  background-color: #3399FF;
-}
 
 #content {
   padding : 45px 0;

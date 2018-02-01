@@ -28,6 +28,13 @@ def authentification(request):
     formAuthentification = AuthentificationForm()
     return render(request, 'colonnes/authentification.html', {'formAuthentification':formAuthentification})
 
+def login(request):
+ #On ajoute le formulaire d'authentification à la vue
+    return render(request, 'colonnes/login.html',{})
+
+def logout(request):
+    return render(request, 'colonnes/logged_out.html',{})
+
 def inscription(request):
     formAuthentification = AuthentificationForm()
     if request.method == "POST":

@@ -70,6 +70,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'ebeck.wsgi.application'
 
+LOGIN_REDIRECT_URL = 'nouvelle_entree'
 
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases

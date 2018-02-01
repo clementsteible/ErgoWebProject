@@ -1,5 +1,9 @@
 {% extends 'colonnes/base.html' %}
 
 {% block content %}
-<div> Bienvenu sur la page des statistiques!</div>
+    {% if user.is_authenticated %}
+	<div> Bienvenu sur la page des statistiques!</div>
+    {% else %}
+    <p>Please login to see this page.</p>
+    {% endif %}
 {% endblock %}

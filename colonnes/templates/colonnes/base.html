@@ -9,6 +9,13 @@
 
     <header class="couleur_bg">
 
+    {% if user.is_authenticated %}
+      Hi {{ user.username }}!
+      <a href="{% url 'logout' %}">logout</a>
+    {% else %}
+      <a href="{% url 'login' %}">login</a>
+    {% endif %}
+
       <img id = "logo_ebeck" src="{% static 'images/ebeck.png' %}" alt="E-Beck">
 
 

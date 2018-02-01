@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -30,6 +31,7 @@ class Personne(models.Model):
         choices = STATUT_CHOICES,
         default = UTILISATEUR,
     )
+    lien_therapeute = models.ManyToManyField("self")
     nom = models.CharField(max_length=30)
     prenom = models.CharField(max_length=30, default='')
     date_de_naissance = models.CharField(max_length=8)
@@ -41,47 +43,65 @@ class Personne(models.Model):
     def __str__ (self):
         return '%s %s' % (self.prenom, self.nom)
 
+class Tag(models.Model):
 
-"""
+        nom_tag = models.CharField(max_length=30, blank=False, help_text = "Entrez un Tag")
+        type_tag = models.CharField(max_length=30, blank=False, help_text = "Famille du tag")
+        def __str__(self):              # __unicode__ on Python 2
+            return '%s' % (self.nom_tag)
 
-class Colonne(models.model):
-
-        situation = models.TextField(max_length=30, blank=False, help_text = "Décrivez la Situation")
-        pensée_aut = models.TextField(max_length=30, blank=False, help_text = "Nom")
-        pensée-alt = models.TextField(max_length=30, blank=False, help_text = "Nom")
-        date_ajout = models.CharField(max_length=30, blank=False, help_text = "Nom")
-        horaire_ajout = models.CharField(max_length=30, blank=False, help_text = "Nom")
-        date_event = models.CharField(max_length=30, blank=False, help_text = "Nom")
-        horaire_event = models.CharField(max_length=30, blank=False, help_text = "Nom")
-        id_ut = models.CharField(max_length=30, blank=False, help_text = "Nom")
-
-class Emotion(models.model):
-
-        id_col = models.CharField(max_length=30, blank=False, help_text = "Nom")
-        id_tag = models.CharField(max_length=30, blank=False, help_text = "Nom")
-        statut_emo = models.CharField(max_length=30, blank=False, help_text = "Nom")
+class Emotion(models.Model):
+        statut_emo = models.CharField(max_length=30, blank=False, help_text = "Non de l'émotion")
         intensite = models.IntegerField(help_text = "Intensité de l'émotion")
 
+        def __str__(self):              # __unicode__ on Python 2
+            return '%s' % (self.statut_emo)
 
+class Colonne(models.Model):
 
+        personne = models.ForeignKey(Personne, on_delete=models.CASCADE)
+        situation = models.TextField(max_length=30, blank=False, help_text = "Décrivez la Situation")
+        pensee_aut = models.TextField(max_length=30, blank=False, help_text = "Pensée automatique")
+        emo_aut = models.ManyToManyField(Emotion, related_name='%(class)s_automatique')
+        pensee_alt = models.TextField(max_length=30, blank=False, help_text = "Pensée alternative")
+        emo_alt = models.ManyToManyField(Emotion, related_name='%(class)s_alternative')
+        date_ajout = models.DateTimeField(auto_now=True, help_text = "Date de l'ajout") #prend la date et l'heure en même temps
+        date_event = models.DateTimeField(auto_now=False, help_text = "Date de l'événement")
+        tag = models.ManyToManyField(Tag)
 
-class Tag(models.model):
+        def __str__(self):              # __unicode__ on Python 2
+            return '%s' % (self.situation)
 
-        id_ut = models.CharField(max_length=30, blank=False, help_text = "Nom")
-        id_col = models.CharField(max_length=30, blank=False, help_text = "Nom")
-        nom_tag = models.CharField(max_length=30, blank=False, help_text = "Entrez un Tag")
-        type_tag = models.CharField(max_length=30, blank=False, help_text = "Nom")
+"""
+class Lien_Emotion_Colonne(models.Model):
+        ALTERNATIVE = 'AL'
+        RESSENTIE = 'RE'
+        TYPE_EMOTION_CHOIX = (
+            (ALTERNATIVE, 'Alternative'),
+            (RESSENTIE, 'Ressentie'),
+        )
+        type_emotion = models.CharField(
+            max_length=2,
+            choices=TYPE_EMOTION_CHOIX,
+            default=RESSENTIE,
+        )
+        colonne = models.ForeignKey(Colonne, on_delete=models.CASCADE)
+        emotion = models.ForeignKey(Emotion, on_delete=models.CASCADE)
 
+class Lien_Tag_Colonne(models.Model):
+        tag = models.ForeignKey(Tag, on_delete=models.CASCADE)
+        col = models.ForeignKey(Colonne, on_delete=models.CASCADE)
 
- class Lien_tag_colonne(models.model):
+"""
+class Conseil(models.Model):
 
-        id_tag = models.CharField(max_length=30, blank=False, help_text = "Nom")
-        id_col = models.CharField(max_length=30, blank=False, help_text = "Nom")
+        type_conseil = models.CharField(max_length=30, blank=False, help_text = "Type du conseil")
+        contenu_conseil = models.CharField(max_length=30, blank=False, help_text = "Contenu du conseil")
+        def __str__(self):              # __unicode__ on Python 2
+            return '%s' % (self.contenu_conseil)
 
-class Conseil(models.model):
-
-        type_conseil = models.CharField(max_length=30, blank=False, help_text = "Nom")
-        contenu_conseil = models.CharField(max_length=30, blank=False, help_text = "Nom")
-
-
-        """
+"""
+class Lien_Ut_Th(models.Model):
+        user = models.ForeignKey(Personne, on_delete=models.CASCADE)
+        ther = models.ForeignKey(Personne, on_delete=models.CASCADE)
+"""

@@ -2,10 +2,10 @@
 
 {% block content %}
     {% if user.is_authenticated %}
-	<div> Bienvenu sur la page journal </div>
+	<p> Bienvenue sur la page journal </p>
     {% else %}
     <p>Connectez-vous pour voir votre journal.</p>
-    <a href="{% url 'login' %}">login</a>
+    <a href="{% url 'login' %}">Se connecter</a>
     {% endif %}
 
 {% endblock %}

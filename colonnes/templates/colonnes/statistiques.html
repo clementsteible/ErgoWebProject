@@ -2,9 +2,9 @@
 
 {% block content %}
     {% if user.is_authenticated %}
-	<div> Bienvenue sur la page des statistiques!</div>
+	<p id="paragraphe"> Bienvenue sur la page des statistiques!</p>
     {% else %}
     <p>Connectez-vous pour voir vos statistiques.</p>
-    <a href="{% url 'login' %}">login</a>
+    <a href="{% url 'login' %}">Se connecter</a>
     {% endif %}
 {% endblock %}

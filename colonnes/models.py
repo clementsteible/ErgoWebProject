@@ -31,7 +31,7 @@ class Personne(models.Model):
         choices = STATUT_CHOICES,
         default = UTILISATEUR,
     )
-    lien_therapeute = models.ManyToManyField("self")
+    lien_therapeute = models.ForeignKey("self", on_delete=models.CASCADE, null=True, blank=True)
     nom = models.CharField(max_length=30)
     prenom = models.CharField(max_length=30, default='')
     date_de_naissance = models.CharField(max_length=8)
@@ -55,15 +55,15 @@ class Emotion(models.Model):
         intensite = models.IntegerField(help_text = "Intensité de l'émotion")
 
         def __str__(self):              # __unicode__ on Python 2
-            return '%s' % (self.statut_emo)
+            return '%s %s' % (self.statut_emo, self.intensite)
 
 class Colonne(models.Model):
 
         personne = models.ForeignKey(Personne, on_delete=models.CASCADE)
-        situation = models.TextField(max_length=30, blank=False, help_text = "Décrivez la Situation")
-        pensee_aut = models.TextField(max_length=30, blank=False, help_text = "Pensée automatique")
+        situation = models.TextField(max_length=100, blank=False, help_text = "Décrivez la Situation")
+        pensee_aut = models.TextField(max_length=300, blank=False, help_text = "Pensée automatique")
         emo_aut = models.ManyToManyField(Emotion, related_name='%(class)s_automatique')
-        pensee_alt = models.TextField(max_length=30, blank=False, help_text = "Pensée alternative")
+        pensee_alt = models.TextField(max_length=300, blank=False, help_text = "Pensée alternative")
         emo_alt = models.ManyToManyField(Emotion, related_name='%(class)s_alternative')
         date_ajout = models.DateTimeField(auto_now=True, help_text = "Date de l'ajout") #prend la date et l'heure en même temps
         date_event = models.DateTimeField(auto_now=False, help_text = "Date de l'événement")

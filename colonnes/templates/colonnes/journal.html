@@ -4,7 +4,8 @@
     {% if user.is_authenticated %}
 	<div> Bienvenu sur la page journal </div>
     {% else %}
-    <p>Please login to see this page.</p>
+    <p>Connectez-vous pour voir votre journal.</p>
+    <a href="{% url 'login' %}">login</a>
     {% endif %}
 
 {% endblock %}

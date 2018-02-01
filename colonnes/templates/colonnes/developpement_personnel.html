@@ -4,7 +4,7 @@
     {% if user.is_authenticated %}
 	<div> Bienvenu sur la page de développement personnel</div>
     {% else %}
-    <p>Please login to see this page.</p>
+    <p>Connectez-vous pour voir les conseils de développement personnel.</p>
+    <a href="{% url 'login' %}">login</a>
     {% endif %}
-
 {% endblock %}

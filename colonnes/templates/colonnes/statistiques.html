@@ -2,8 +2,9 @@
 
 {% block content %}
     {% if user.is_authenticated %}
-	<div> Bienvenu sur la page des statistiques!</div>
+	<div> Bienvenue sur la page des statistiques!</div>
     {% else %}
-    <p>Please login to see this page.</p>
+    <p>Connectez-vous pour voir vos statistiques.</p>
+    <a href="{% url 'login' %}">login</a>
     {% endif %}
 {% endblock %}

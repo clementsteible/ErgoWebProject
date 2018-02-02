@@ -15,4 +15,3 @@ admin.site.register(Emotion)
 admin.site.register(Tag)
 #Importation du modèle Conseil
 admin.site.register(Conseil)
-

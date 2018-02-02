@@ -1,5 +1,7 @@
 {% extends 'colonnes/base.html' %}
 
+<div>
+
 {% block content %}
     {% if user.is_authenticated %}
 	<p> Bienvenue sur la page de développement personnel</p>
@@ -8,3 +10,5 @@
     <a href="{% url 'login' %}">Se connecter</a>
     {% endif %}
 {% endblock %}
+
+</div>

@@ -1,10 +1,15 @@
 {% extends 'colonnes/base.html' %}
 
+<div>
+
 {% block content %}
     {% if user.is_authenticated %}
+    <img src="graphique.py" alt="image du graphique">
 	<p id="paragraphe"> Bienvenue sur la page des statistiques!</p>
     {% else %}
     <p>Connectez-vous pour voir vos statistiques.</p>
     <a href="{% url 'login' %}">Se connecter</a>
     {% endif %}
 {% endblock %}
+
+</div>

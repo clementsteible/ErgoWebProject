@@ -48,7 +48,7 @@ class Tag(models.Model):
         nom_tag = models.CharField(max_length=30, blank=False, help_text = "Entrez un Tag")
         type_tag = models.CharField(max_length=30, blank=False, help_text = "Famille du tag")
         def __str__(self):              # __unicode__ on Python 2
-            return '%s' % (self.nom_tag)
+            return self.nom_tag
 
 class Emotion(models.Model):
         statut_emo = models.CharField(max_length=30, blank=False, help_text = "Non de l'émotion")
@@ -70,7 +70,7 @@ class Colonne(models.Model):
         tag = models.ManyToManyField(Tag)
 
         def __str__(self):              # __unicode__ on Python 2
-            return '%s' % (self.situation)
+            return self.situation
 
 """
 class Lien_Emotion_Colonne(models.Model):

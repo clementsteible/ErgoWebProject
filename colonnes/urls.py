@@ -16,6 +16,8 @@ urlpatterns = [
     path('journal/', views.journal, name='journal'),
     #Page des statistiques
     path('statistiques/', views.statistiques, name='statistiques'),
+    #Page des statistiques sur les émotions du jour/semaine/mois
+    path('statistiques/<str:periode>/<str:emotion>/', views.statistiques, name='statistiques'),
     #Page pour les conseils de développement personnel
     path('developpement_personnel/', views.developpement_personnel, name='developpement_personnel'),
     #Page des paramètres de l'application

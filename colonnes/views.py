@@ -2,7 +2,13 @@ from django.shortcuts import render
 from colonnes.models import Personne
 from .forms import InscriptionForm, AuthentificationForm
 from django.shortcuts import redirect
-import matplotlib.pyplot
+from matplotlib import pyplot as PLT
+import numpy as NP
+from io import BytesIO, StringIO
+import PIL
+import pylab
+from PIL import Image
+from django.http import HttpResponse
 
 # Create your views here.
 
@@ -28,6 +34,28 @@ def authentification(request):
     #On ajoute le formulaire d'authentification à la vue
     formAuthentification = AuthentificationForm()
     return render(request, 'colonnes/authentification.html', {'formAuthentification':formAuthentification})
+
+def showimage(request):
+    # Construct the graph
+    t = NP.arange(0.0, 2.0, 0.01)
+    s = NP.sin(2*NP.pi*t)
+    PLT.plot(t, s, linewidth=1.0)
+
+    PLT.xlabel('time (s)')
+    PLT.ylabel('voltage (mV)')
+    PLT.title('About as simple as it gets, folks')
+    PLT.grid(True)
+
+    # Store image in a string buffer
+    buffer = BytesIO()
+    canvas = pylab.get_current_fig_manager().canvas
+    canvas.draw()
+    pilImage = PIL.Image.frombytes("RGB", canvas.get_width_height(), canvas.tostring_rgb())
+    pilImage.save(buffer, "PNG")
+    pylab.close()
+
+    # Send buffer in a http response the the browser with the mime type image/png set
+    return HttpResponse(buffer.getvalue(), content_type="image/png")
 
 def login(request):
  #On ajoute le formulaire d'authentification à la vue

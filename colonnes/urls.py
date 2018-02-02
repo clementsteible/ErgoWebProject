@@ -24,4 +24,7 @@ urlpatterns = [
     path('authentification/', views.authentification, name='authentification'),
     #Page d'authentification
     path('inscription/', views.inscription, name='inscription'),
+    #Showimage
+    path('showimage/', views.showimage, name='showimage'),
+
 ]

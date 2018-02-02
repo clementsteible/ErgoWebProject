@@ -4,8 +4,9 @@
 
 {% block content %}
     {% if user.is_authenticated %}
-    <img src="graphique.py" alt="image du graphique">
+    <!-- <img src="graphique.py" alt="image du graphique"> -->
 	<p id="paragraphe"> Bienvenue sur la page des statistiques!</p>
+    {% showimage %}
     {% else %}
     <p>Connectez-vous pour voir vos statistiques.</p>
     <a href="{% url 'login' %}">Se connecter</a>

@@ -1,5 +1,6 @@
 from django import forms
 from .models import Personne
+from .models import Colonne
 
 class InscriptionForm(forms.ModelForm):
     class Meta:

@@ -1,11 +1,15 @@
 {% extends 'colonnes/base.html' %}
 
+<div>
+
 {% block content %}
     {% if user.is_authenticated %}
-	<div> Bienvenu sur la page paramètres</div>
+	<p> Bienvenue sur la page paramètres</p>
     {% else %}
     <p>Connectez-vous pour voir vos paramètres.</p>
-    <a href="{% url 'login' %}">login</a>
+    <a href="{% url 'login' %}">Se connecter</a>
     {% endif %}
 
 {% endblock %}
+
+</div>

@@ -2,6 +2,7 @@ from django.shortcuts import render
 from colonnes.models import Personne
 from .forms import InscriptionForm, AuthentificationForm
 from django.shortcuts import redirect
+import matplotlib.pyplot
 
 # Create your views here.
 

@@ -13,7 +13,24 @@ text-align : center;
 #logo_ebeck{
 padding: 5px;
 text-align : center;
+}
 
+a:link 
+{ 
+  color : #0099ff;
+  text-decoration: none; 
+} 
+
+#paragraphe {
+  margin-left : 20px;
+  font-size : 1.2em;
+  font-family: "Trebuchet MS", Verdana, Geneva, Arial;
+  font-weight: lighter;
+}
+
+#error {
+  color : red;
+  font-style: italic;
 }
 
 .boutons
@@ -82,11 +99,10 @@ de déverouillage de l'application web */
 d'authentification de l'application web*/
 
 #content {
-  padding : 45px 0;
+  padding : 35px;
   margin-top : 40px;
   margin-left : auto;
   margin-right : auto;
-  width : 80%;
   font-family: "Trebuchet MS", Verdana, Geneva, Arial;
   font-weight: lighter;
   border: 1px solid #696;
@@ -103,6 +119,15 @@ d'authentification de l'application web*/
   background: -ms-linear-gradient(#66C2FF, #b3e0ff);
   background: -o-linear-gradient(#66C2FF, #b3e0ff);
   background: linear-gradient(#66C2FF, #b3e0ff);
+}
+
+#footer {
+  bottom: 0px;
+  background-color : rgba(0, 153, 255, 0.5);
+  text-align: center;
+  position: absolute;
+  font-family: "Trebuchet MS", Verdana, Geneva, Arial;
+  font-weight: lighter;
 }
 
 #valider_auth_button, #inscription_button {

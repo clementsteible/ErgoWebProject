@@ -1,12 +1,23 @@
 {% extends 'colonnes/base.html' %}
 
-{% block title %}Login{% endblock %}
+{% block title %}Connexion{% endblock %}
 
 {% block content %}
-  <h2>Login</h2>
+<div id="content">
+
+  <h2>Connexion</h2>
+  
   <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit">Login</button>
+    <button id="valider_auth_button" class="boutons" type="submit">Se connecter</button>
   </form>
+
+  <div id="bouton_inscription">
+   	<a href="{% url 'inscription' %}">
+     	<input type="button" id="inscription_button" class="boutons" value="Inscription">
+     </a>
+  </div>
+
+</div>
 {% endblock %}

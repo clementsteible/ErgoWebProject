@@ -9,12 +9,6 @@
 
     <header class="couleur_bg">
 
-    {% if user.is_authenticated %}
-      Hi {{ user.username }}!
-      <a href="{% url 'logout' %}">logout</a>
-    {% else %}
-      <a href="{% url 'login' %}">login</a>
-    {% endif %}
 
       <img id = "logo_ebeck" src="{% static 'images/ebeck.png' %}" alt="E-Beck">
 
@@ -48,8 +42,18 @@
           </div>
       </div>
 
+    {% if user.is_authenticated %}
+      <div id="footer">
+         {{ user.username }} -
+        <a href="{% url 'logout' %}">Deconnexion</a>
+      </div>
+    {% else %}
+        <a href="{% url 'login' %}">Se connecter</a>
+    {% endif %}
+
       <script type="text/javascript" src="{% static "js/jquery-3.2.1.js" %}"></script>
       <script type="text/javascript" src="{% static "js/students.js" %}"></script>
+
 
     </body>
 

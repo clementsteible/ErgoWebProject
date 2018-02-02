@@ -4,9 +4,19 @@
 
 {% block content %}
     {% if user.is_authenticated %}
-    <!-- <img src="graphique.py" alt="image du graphique"> -->
-	<p id="paragraphe"> Bienvenue sur la page des statistiques!</p>
-    {% showimage %}
+	<div id="content">
+		<p> Emotion : </p>
+		<select>
+	  		<option value="joie">Joie</option>
+	  		<option value="tristesse">Tristesse</option>
+	  		<option value="colere">Colère</option>
+	  		<option value="anxiete">Anxiété</option>
+		</select>
+		<button class="boutons"> Journée </button>
+		<button class="boutons"> Semaine </button>
+		<button class="boutons"> Mois </button>
+	</div>
+    <a href="{% url 'showimage' %}"> Visionner le graphique</a>
     {% else %}
     <p>Connectez-vous pour voir vos statistiques.</p>
     <a href="{% url 'login' %}">Se connecter</a>

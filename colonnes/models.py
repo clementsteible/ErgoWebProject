@@ -72,6 +72,10 @@ class Colonne(models.Model):
         def __str__(self):              # __unicode__ on Python 2
             return self.situation
 
+        #méthode retournant l'attribut de type Emotion qui correspond aux Emotions automatiques de l'utilisateur pour une situation donnée
+        def return_emo_aut(self):
+            return self.emo_aut 
+
 """
 class Lien_Emotion_Colonne(models.Model):
         ALTERNATIVE = 'AL'

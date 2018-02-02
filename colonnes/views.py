@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from colonnes.models import Personne
+from colonnes.models import Colonne
 from .forms import InscriptionForm, AuthentificationForm
 from django.shortcuts import redirect
 from matplotlib import pyplot as PLT
@@ -36,6 +37,11 @@ def authentification(request):
     return render(request, 'colonnes/authentification.html', {'formAuthentification':formAuthentification})
 
 def showimage(request):
+    # je récupère la personne
+    per = Personne.objects.get(id=1)
+    col = per.colonne_set.get(id=1)
+    emo = col.emo_aut.filter(statut_emo='Joie')
+    return HttpResponse(emo)
     # Construct the graph
     t = NP.arange(0.0, 2.0, 0.01)
     s = NP.sin(2*NP.pi*t)

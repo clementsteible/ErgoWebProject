@@ -34,7 +34,7 @@ class Personne(models.Model):
     lien_therapeute = models.ForeignKey("self", on_delete=models.CASCADE, null=True, blank=True)
     nom = models.CharField(max_length=30)
     prenom = models.CharField(max_length=30, default='')
-    date_de_naissance = models.CharField(max_length=8)
+    date_de_naissance = models.DateField(auto_now=False, auto_now_add=False,)
     pays = models.CharField(max_length=30)
     ville = models.CharField(max_length=30)
     langue = models.CharField(max_length=30)
@@ -60,10 +60,10 @@ class Emotion(models.Model):
 class Colonne(models.Model):
 
         personne = models.ForeignKey(Personne, on_delete=models.CASCADE)
-        situation = models.TextField(max_length=100, blank=False, help_text = "Décrivez la Situation")
-        pensee_aut = models.TextField(max_length=300, blank=False, help_text = "Pensée automatique")
+        situation = models.TextField(max_length=1000, blank=False, help_text = "Décrivez la Situation")
+        pensee_aut = models.TextField(max_length=500, blank=False, help_text = "Pensée automatique")
         emo_aut = models.ManyToManyField(Emotion, related_name='%(class)s_automatique')
-        pensee_alt = models.TextField(max_length=300, blank=False, help_text = "Pensée alternative")
+        pensee_alt = models.TextField(max_length=500, blank=False, help_text = "Pensée alternative")
         emo_alt = models.ManyToManyField(Emotion, related_name='%(class)s_alternative')
         date_ajout = models.DateTimeField(auto_now=True, help_text = "Date de l'ajout") #prend la date et l'heure en même temps
         date_event = models.DateTimeField(auto_now=False, help_text = "Date de l'événement")
@@ -96,7 +96,7 @@ class Lien_Tag_Colonne(models.Model):
 class Conseil(models.Model):
 
         type_conseil = models.CharField(max_length=30, blank=False, help_text = "Type du conseil")
-        contenu_conseil = models.CharField(max_length=30, blank=False, help_text = "Contenu du conseil")
+        contenu_conseil = models.CharField(max_length=400, blank=False, help_text = "Contenu du conseil")
         def __str__(self):              # __unicode__ on Python 2
             return '%s' % (self.contenu_conseil)
 

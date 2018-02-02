@@ -24,7 +24,24 @@ def journal(request):
 
 def statistiques(request):
     return render(request, 'colonnes/statistiques.html', {})
+"""
+def statistiques(request, periode, emotion):
 
+    if (periode == "jour"){
+            periode_jour = timezone.now().day;
+            emotions_du_jour =  join Emotion.objects.get(contains
+    }
+
+    elif (periode == "semaine"){
+        periode_semaine = timezone.now().week;
+    }
+
+    elif (periode == "mois"){
+        periode_mois = timezone.now().month;
+    }
+
+    return render(request, 'colonnes/statistiques.html', {})
+"""
 def developpement_personnel(request):
     return render(request, 'colonnes/developpement_personnel.html', {})
 

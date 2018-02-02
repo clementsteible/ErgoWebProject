@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from colonnes.models import Personne
 from colonnes.models import Colonne
-from .forms import InscriptionForm, AuthentificationForm
+from .forms import SignUpForm
 from django.shortcuts import redirect
 from matplotlib import pyplot as PLT
 import numpy as NP
@@ -10,6 +10,8 @@ import PIL
 import pylab
 from PIL import Image
 from django.http import HttpResponse
+from django.contrib.auth import login, authenticate
+from django.shortcuts import render, redirect
 
 # Create your views here.
 
@@ -48,11 +50,6 @@ def developpement_personnel(request):
 def parametres(request):
     return render(request, 'colonnes/parametres.html', {})
 
-def authentification(request):
-    #On ajoute le formulaire d'authentification à la vue
-    formAuthentification = AuthentificationForm()
-    return render(request, 'colonnes/authentification.html', {'formAuthentification':formAuthentification})
-
 def showimage(request):
     # je récupère la personne
     per = Personne.objects.get(id=1)
@@ -87,6 +84,17 @@ def login(request):
 def logout(request):
     return render(request, 'colonnes/logged_out.html',{})
 
+def signup(request):
+    if request.method == 'POST':
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return render(request, 'colonnes/login.html',{})
+    else:
+        form = SignUpForm()
+    return render(request, 'colonnes/signup.html', {'form': form})
+
+"""
 def inscription(request):
     formAuthentification = AuthentificationForm()
     if request.method == "POST":
@@ -99,3 +107,10 @@ def inscription(request):
         #On ajoute le formulaire d'inscription à la vue
         formInscription = InscriptionForm(request.POST)
     return render(request, 'colonnes/inscription.html', {'formInscription':formInscription})
+
+def authentification(request):
+    #On ajoute le formulaire d'authentification à la vue
+    formAuthentification = AuthentificationForm()
+    return render(request, 'colonnes/authentification.html', {'formAuthentification':formAuthentification})
+"""
+

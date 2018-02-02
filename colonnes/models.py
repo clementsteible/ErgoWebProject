@@ -59,7 +59,7 @@ class Emotion(models.Model):
 
 class Colonne(models.Model):
 
-        personne = models.ForeignKey(Personne, on_delete=models.CASCADE)
+        utilisateur = models.ForeignKey(User, on_delete=models.CASCADE)
         situation = models.TextField(max_length=1000, blank=False, help_text = "Décrivez la Situation")
         pensee_aut = models.TextField(max_length=500, blank=False, help_text = "Pensée automatique")
         emo_aut = models.ManyToManyField(Emotion, related_name='%(class)s_automatique')
@@ -104,8 +104,8 @@ class Conseil(models.Model):
         def __str__(self):              # __unicode__ on Python 2
             return '%s' % (self.contenu_conseil)
 
-"""
+
 class Lien_Ut_Th(models.Model):
-        user = models.ForeignKey(Personne, on_delete=models.CASCADE)
-        ther = models.ForeignKey(Personne, on_delete=models.CASCADE)
-"""
+        user = models.ForeignKey(User, related_name='%(class)s_utilisateur', on_delete=models.CASCADE)
+        ther = models.ForeignKey(User, related_name='%(class)s_therapeute', on_delete=models.CASCADE)
+

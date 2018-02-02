@@ -20,8 +20,11 @@
       </div>
 
       <div class="couleur_bg" class="deverouillage" id = "slide">
-          <a href="{% url 'login' %}">
-          <input type="button" class="boutons" id="slide_bouton"></a>
+        {% if user.is_authenticated %}
+            <a href="{% url 'journal' %}"><input type="button" class="boutons" id="slide_bouton"></a>
+          {% else %}
+            <a href="{% url 'login' %}"><input type="button" class="boutons" id="slide_bouton"></a>
+          {% endif %}
       </div>
 
     </body>

@@ -1,5 +1,5 @@
 from django import forms
-from .models import Personne, Colonne
+from .models import Colonne, Tag, Emotion
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
@@ -20,7 +20,17 @@ class AuthentificationForm(forms.ModelForm):
 class ColonneForm(forms.ModelForm):
     class Meta:
         model = Colonne
-        fields = ('situation', 'pensee_aut', 'emo_aut', "pensee_alt", "emo_alt","date_event","tag")
+        fields = ('situation', 'pensee_aut', 'emotion', 'intensiteAut', "pensee_alt", 'intensiteAlt', "date_event",'tag')
+
+class AjoutTagForm(forms.ModelForm):
+    class Meta:
+        model = Tag
+        fields = ('nom_tag',)
+
+class AjoutEmotionForm(forms.ModelForm):
+    class Meta:
+        model = Emotion
+        fields = ('statut_emo',)
 
 class SignUpForm(UserCreationForm):
     first_name = forms.CharField(max_length=30, required=False, help_text='Optional.')

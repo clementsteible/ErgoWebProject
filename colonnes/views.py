@@ -1,6 +1,6 @@
 from django.shortcuts import render
-from colonnes.models import Personne, Colonne
-from colonnes.forms import ColonneForm
+from colonnes.models import Colonne, Tag
+from colonnes.forms import ColonneForm, AjoutTagForm, AjoutEmotionForm
 from .forms import SignUpForm
 from django.shortcuts import redirect
 from matplotlib import pyplot as PLT
@@ -26,10 +26,10 @@ def nouvelle_entree(request):
             colonne = formColonne.save(commit = False)
             colonne.utilisateur = request.user
             colonne.save()
-            messageEnregistrementValide = "Votre colonne a bien été enregistrée."
-            return render(request, 'colonnes/nouvelle_entree.html',  {'messageEnregistrementValide':messageEnregistrementValide, 'formColonne': formColonne})
+            messageEnregistrementColonneValide = "Votre colonne a bien été enregistrée."
+            return render(request, 'colonnes/nouvelle_entree.html',  {'messageEnregistrementColonneValide':messageEnregistrementColonneValide, 'formColonne': formColonne})
     else :
-        #On ajoute le formulaire de colonne à la vue
+        #On ajoute le formulaire de colonne et d'ajout de tag à la vue
         formColonne = ColonneForm()
     return render(request, 'colonnes/nouvelle_entree.html', {'formColonne': formColonne})
 
@@ -60,30 +60,43 @@ def developpement_personnel(request):
     return render(request, 'colonnes/developpement_personnel.html', {})
 
 def parametres(request):
-    return render(request, 'colonnes/parametres.html', {})
+    if request.method == "POST":
+        formTag = AjoutTagForm(request.POST)
+        if formTag.is_valid():
+            tag = formTag.save(commit = False)
+            tag.utilisateur = request.user
+            tag.save()
+            messageEnregistrementTagValide = "Votre nouveau Tag a bien été enregistré."
+            return render(request, 'colonnes/parametres.html',  {'formTag':formTag})
+    else :
+        #On ajoute le formulaire d'ajout de tag à la vue
+        formTag = AjoutTagForm()
+    return render(request, 'colonnes/parametres.html', {'formTag':formTag})
 
 def showimage(request):
     # je récupère la personne
-    per = Personne.objects.get(id=1)
-    col = per.colonne_set.get(id=1)
-    emo = col.emo_aut.filter(statut_emo='Joie')
-    return HttpResponse(emo)
+    #per = Personne.objects.get(id=1)
+    #col = per.colonne_set.get(id=1)
+    #emo = col.emo_aut.filter(statut_emo='Joie')
+    #return HttpResponse(emo)
+    periode = '30 derniers jours'
+    emotion = 'la Peur '
     # Construct the graph
     t = NP.arange(0.0, 2.0, 0.01)
     s = NP.sin(2*NP.pi*t)
     PLT.plot(t, s, linewidth=1.0)
 
-    PLT.xlabel('time (s)')
-    PLT.ylabel('voltage (mV)')
-    PLT.title('About as simple as it gets, folks')
+    PLT.xlabel("Date des entrées de "+ emotion)
+    PLT.ylabel("Intensité de "+ emotion)
+    PLT.title("Evolution de l'intensité de " + emotion + "sur les " + periode)
     PLT.grid(True)
 
     # Store image in a string buffer
     buffer = BytesIO()
     canvas = pylab.get_current_fig_manager().canvas
     canvas.draw()
-    pilImage = PIL.Image.frombytes("RGB", canvas.get_width_height(), canvas.tostring_rgb())
-    pilImage.save(buffer, "PNG")
+    statistiques = PIL.Image.frombytes("RGB", canvas.get_width_height(), canvas.tostring_rgb())
+    statistiques.save(buffer, "PNG")
     pylab.close()
 
     # Send buffer in a http response the the browser with the mime type image/png set

@@ -10,6 +10,16 @@
     <a href="{% url 'login' %}">Se connecter</a>
     {% endif %}
 
+
+      {{messageEnregistrementTagValide}} {{messageEnregistrementEmotionValide}}
+    <p>
+      <form method="POST">{% csrf_token %}
+        {{formTag.as_p}}
+        <button type="submit">Ajouter un Tag</button>
+      </form>
+    </p>
+
+
 {% endblock %}
 
 </div>

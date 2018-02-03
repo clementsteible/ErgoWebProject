@@ -1,13 +1,13 @@
 from django.contrib import admin
-from .models import Personne
+#from .models import Personne
 from .models import Colonne
 from .models import Emotion
 from .models import Tag
 from .models import Conseil
 from .models import Lien_Ut_Th
 
-#Importation du modèle Personne (Utilisateur/Thérapeute) dans l'interface admin de Django
-admin.site.register(Personne)
+##Importation du modèle Personne (Utilisateur/Thérapeute) dans l'interface admin de Django
+#admin.site.register(Personne)
 #Importation du modèle Colonne
 admin.site.register(Colonne)
 #Importation du modèle Emotion

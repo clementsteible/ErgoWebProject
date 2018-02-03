@@ -1,7 +1,8 @@
 from django import forms
-from .models import Personne, Colonne
+from .models import Personne, Colonne, Emotion
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from django.http import HttpResponse
 
 """
 class InscriptionForm(forms.ModelForm):
@@ -18,6 +19,17 @@ class AuthentificationForm(forms.ModelForm):
 """
 
 class ColonneForm(forms.ModelForm):
+    CHOICES = "("
+    #nb_emotions = Emotion.objects.count()
+    #i=0;
+    for e in Emotion.objects.all() :
+           # emo = Emotion.objects.all()[:1].get()
+           # i += 1
+           CHOICES += "(" + str(e.statut_emo) + ", '" + str(e.statut_emo) + "'),"
+    CHOICES += ")"
+    #ne marche pas alors que la structure de CHOICES correspond normalement à ce qui est attendu
+    #emotion_field = forms.ChoiceField(widget=forms.RadioSelect, choices=CHOICES)
+
     class Meta:
         model = Colonne
         fields = ('situation', 'pensee_aut', 'emo_aut', "pensee_alt", "emo_alt","date_event","tag")

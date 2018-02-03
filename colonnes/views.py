@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from colonnes.models import Personne, Colonne
+from colonnes.models import Personne, Colonne, Emotion
 from colonnes.forms import ColonneForm
 from .forms import SignUpForm
 from django.shortcuts import redirect
@@ -20,6 +20,13 @@ def deverouillage(request):
     return render(request, 'colonnes/deverouillage.html', {})
 
 def nouvelle_entree(request):
+    """
+    CHOICES = "("
+    for e in Emotion.objects.all() :
+           CHOICES += "(" + str(e.statut_emo) + ", '" + str(e.statut_emo) + "'),"
+    CHOICES += ")"
+    return HttpResponse(CHOICES)
+    """
     if request.method == "POST":
         formColonne = ColonneForm(request.POST)
         if formColonne.is_valid():
@@ -31,7 +38,7 @@ def nouvelle_entree(request):
     else :
         #On ajoute le formulaire de colonne à la vue
         formColonne = ColonneForm()
-    return render(request, 'colonnes/nouvelle_entree.html', {'formColonne': formColonne})
+        return render(request, 'colonnes/nouvelle_entree.html', {'formColonne': formColonne})
 
 def journal(request):
     return render(request, 'colonnes/journal.html', {})

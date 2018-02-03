@@ -5,6 +5,7 @@ from .models import Emotion
 from .models import Tag
 from .models import Conseil
 from .models import Lien_Ut_Th
+from .models import Emotion_Colonne
 
 #Importation du modèle Personne (Utilisateur/Thérapeute) dans l'interface admin de Django
 admin.site.register(Personne)
@@ -18,3 +19,4 @@ admin.site.register(Tag)
 admin.site.register(Conseil)
 #Importation du modèle pour le lien utilisateur thérapeute
 admin.site.register(Lien_Ut_Th)
+admin.site.register(Emotion_Colonne)

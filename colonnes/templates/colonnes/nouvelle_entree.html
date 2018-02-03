@@ -3,8 +3,11 @@
 <div>
 
 {% block content %}
-
-<p> Bienvenue sur la page nouvelle_entree </p>
+<p> {{messageEnregistrementValide}}</p>
+  <form method="POST" class="post-form">{% csrf_token %}
+    {{formColonne.as_p}}
+    <button type="submit" class="save btn btn-default">Enregistrer</button>
+  </form>
 {% endblock %}
 
 </div>

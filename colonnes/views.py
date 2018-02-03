@@ -1,6 +1,6 @@
 from django.shortcuts import render
-from colonnes.models import Personne
-from colonnes.models import Colonne
+from colonnes.models import Personne, Colonne
+from colonnes.forms import ColonneForm
 from .forms import SignUpForm
 from django.shortcuts import redirect
 from matplotlib import pyplot as PLT
@@ -12,6 +12,7 @@ from PIL import Image
 from django.http import HttpResponse
 from django.contrib.auth import login, authenticate
 from django.shortcuts import render, redirect
+from django.contrib.auth.models import User
 
 # Create your views here.
 
@@ -19,7 +20,18 @@ def deverouillage(request):
     return render(request, 'colonnes/deverouillage.html', {})
 
 def nouvelle_entree(request):
-    return render(request, 'colonnes/nouvelle_entree.html', {})
+    if request.method == "POST":
+        formColonne = ColonneForm(request.POST)
+        if formColonne.is_valid():
+            colonne = formColonne.save(commit = False)
+            colonne.utilisateur = request.user
+            colonne.save()
+            messageEnregistrementValide = "Votre colonne a bien été enregistrée."
+            return render(request, 'colonnes/nouvelle_entree.html',  {'messageEnregistrementValide':messageEnregistrementValide, 'formColonne': formColonne})
+    else :
+        #On ajoute le formulaire de colonne à la vue
+        formColonne = ColonneForm()
+    return render(request, 'colonnes/nouvelle_entree.html', {'formColonne': formColonne})
 
 def journal(request):
     return render(request, 'colonnes/journal.html', {})
@@ -86,13 +98,13 @@ def logout(request):
 
 def signup(request):
     if request.method == 'POST':
-        form = SignUpForm(request.POST)
-        if form.is_valid():
-            form.save()
+        formSignUp = SignUpForm(request.POST)
+        if formSignUp.is_valid():
+            formSignUp.save()
             return render(request, 'colonnes/login.html',{})
     else:
-        form = SignUpForm()
-    return render(request, 'colonnes/signup.html', {'form': form})
+        formSignUp = SignUpForm()
+    return render(request, 'colonnes/signup.html', {'formSignUp': formSignUp})
 
 """
 def inscription(request):
@@ -113,4 +125,3 @@ def authentification(request):
     formAuthentification = AuthentificationForm()
     return render(request, 'colonnes/authentification.html', {'formAuthentification':formAuthentification})
 """
-

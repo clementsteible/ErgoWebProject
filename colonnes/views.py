@@ -1,11 +1,6 @@
 from django.shortcuts import render
-<<<<<<< HEAD
-from colonnes.models import Colonne, Tag
+from colonnes.models import Colonne, Tag, Emotion
 from colonnes.forms import ColonneForm, AjoutTagForm, AjoutEmotionForm
-=======
-from colonnes.models import Personne, Colonne, Emotion
-from colonnes.forms import ColonneForm
->>>>>>> 99e5acd438f5413d8f072b0da6d891f808753d4b
 from .forms import SignUpForm
 from django.shortcuts import redirect
 from matplotlib import pyplot as PLT

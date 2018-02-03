@@ -1,6 +1,11 @@
 from django.shortcuts import render
+<<<<<<< HEAD
 from colonnes.models import Colonne, Tag
 from colonnes.forms import ColonneForm, AjoutTagForm, AjoutEmotionForm
+=======
+from colonnes.models import Personne, Colonne, Emotion
+from colonnes.forms import ColonneForm
+>>>>>>> 99e5acd438f5413d8f072b0da6d891f808753d4b
 from .forms import SignUpForm
 from django.shortcuts import redirect
 from matplotlib import pyplot as PLT
@@ -20,6 +25,13 @@ def deverouillage(request):
     return render(request, 'colonnes/deverouillage.html', {})
 
 def nouvelle_entree(request):
+    """
+    CHOICES = "("
+    for e in Emotion.objects.all() :
+           CHOICES += "(" + str(e.statut_emo) + ", '" + str(e.statut_emo) + "'),"
+    CHOICES += ")"
+    return HttpResponse(CHOICES)
+    """
     if request.method == "POST":
         formColonne = ColonneForm(request.POST)
         if formColonne.is_valid():
@@ -31,7 +43,7 @@ def nouvelle_entree(request):
     else :
         #On ajoute le formulaire de colonne et d'ajout de tag à la vue
         formColonne = ColonneForm()
-    return render(request, 'colonnes/nouvelle_entree.html', {'formColonne': formColonne})
+        return render(request, 'colonnes/nouvelle_entree.html', {'formColonne': formColonne})
 
 def journal(request):
     return render(request, 'colonnes/journal.html', {})

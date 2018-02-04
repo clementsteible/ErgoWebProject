@@ -1,13 +1,9 @@
 from django import forms
-from .models import Colonne, Tag, Emotion, Statistiques
+from .models import Colonne, Tag, Emotion
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.http import HttpResponse
 
-class StatistiquesForm(forms.ModelForm):
-    class Meta:
-        model = Statistiques
-        fields = ('dateDeDebut', 'dateDeFin', 'emotion')
 
 class ColonneForm(forms.ModelForm):
     class Meta:

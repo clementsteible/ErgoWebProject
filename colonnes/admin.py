@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Colonne, Emotion, Tag, Conseil, Statistiques
+from .models import Colonne, Emotion, Tag, Conseil
 from .models import Lien_Ut_Th
 
 #Importation du modèle Colonne
@@ -12,5 +12,3 @@ admin.site.register(Tag)
 admin.site.register(Conseil)
 #Importation du modèle pour le lien utilisateur thérapeute
 admin.site.register(Lien_Ut_Th)
-#Importation du modèle Statistiques
-admin.site.register(Statistiques)

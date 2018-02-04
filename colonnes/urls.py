@@ -3,8 +3,9 @@ from django.urls import path
 from django.contrib.auth import views as auth_views
 from . import views
 
+#définition des URLS et des views pour chaque url
 urlpatterns = [
-    #Page de login
+    #Page de login. j'utilise l'authentification inclue dans Django 
     path('login/', auth_views.LoginView.as_view(template_name='colonnes/login.html'), name='login'),
     #Page de logout
     path('logout/', auth_views.LogoutView.as_view(template_name='colonnes/logged_out.html'), name='logout'),

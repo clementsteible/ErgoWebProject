@@ -1,6 +1,6 @@
 from django.shortcuts import render
-from colonnes.models import Colonne, Tag, Emotion
-from colonnes.forms import ColonneForm, AjoutTagForm, AjoutEmotionForm
+from colonnes.models import Colonne, Tag, Emotion, Statistiques
+from colonnes.forms import ColonneForm, AjoutTagForm, AjoutEmotionForm, StatistiquesForm
 from .forms import SignUpForm
 from django.shortcuts import redirect
 from matplotlib import pyplot as PLT
@@ -13,6 +13,8 @@ from django.http import HttpResponse
 from django.contrib.auth import login, authenticate
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
+from datetime import datetime
+from django.utils import timezone
 
 # Create your views here.
 
@@ -20,13 +22,6 @@ def deverouillage(request):
     return render(request, 'colonnes/deverouillage.html', {})
 
 def nouvelle_entree(request):
-    """
-    CHOICES = "("
-    for e in Emotion.objects.all() :
-           CHOICES += "(" + str(e.statut_emo) + ", '" + str(e.statut_emo) + "'),"
-    CHOICES += ")"
-    return HttpResponse(CHOICES)
-    """
     if request.method == "POST":
         formColonne = ColonneForm(request.POST)
         if formColonne.is_valid():

@@ -5,7 +5,80 @@
 {% block content %}
 <p> {{messageEnregistrementColonneValide}}</p>
 <p><form method="POST">{% csrf_token %}
-    {{formColonne.as_p}}
+    <!--{{formColonne.as_p}}-->
+    <p><label for="id_situation">Situation :</label> <textarea name="situation" cols="40" rows="10" maxlength="1000" required id="id_situation">
+</textarea></p>
+<p><label for="id_pensee_aut">Pensées automatiques :</label> <textarea name="pensee_aut" cols="40" rows="10" maxlength="500" required id="id_pensee_aut">
+</textarea></p>
+<p><label for="id_emotion">Veuillez choisir l'émotion principale ressentie durant la situation :</label> <select name="emotion" id="id_emotion">
+  <option value="JO" selected>Joie</option>
+
+  <option value="CO">Colère</option>
+
+  <option value="TR">Tristesse</option>
+
+  <option value="DE">Dégoût</option>
+
+  <option value="PE">Peur</option>
+
+</select></p>
+<p><label for="id_intensiteAut">Veuillez noter l'intensité de l'émotion ressentie suite à ces pensées automatiques sur l'échelle de 10 :</label> <select name="intensiteAut" id="id_intensiteAut">
+  <option value="1">1</option>
+
+  <option value="2">2</option>
+
+  <option value="3">3</option>
+
+  <option value="4">4</option>
+
+  <option value="5" selected>5</option>
+
+  <option value="6">6</option>
+
+  <option value="7">7</option>
+
+  <option value="8">8</option>
+
+  <option value="9">9</option>
+
+  <option value="10">10</option>
+
+</select></p>
+<p><label for="id_pensee_alt">Pensées alternatives :</label> <textarea name="pensee_alt" cols="40" rows="10" maxlength="500" required id="id_pensee_alt">
+</textarea></p>
+<p><label for="id_intensiteAlt">Veuillez noter l'intensité de l'émotion ressentie suite à ces pensées alternatives sur l'échelle de 10 :</label> <select name="intensiteAlt" id="id_intensiteAlt">
+  <option value="1">1</option>
+
+  <option value="2">2</option>
+
+  <option value="3">3</option>
+
+  <option value="4">4</option>
+
+  <option value="5" selected>5</option>
+
+  <option value="6">6</option>
+
+  <option value="7">7</option>
+
+  <option value="8">8</option>
+
+  <option value="9">9</option>
+
+  <option value="10">10</option>
+
+</select></p>
+<p><label for="id_date_event">Date à laquelle la situation s'est produite :</label> <input type="text" name="date_event" required id="id_date_event" /> <span class="helptext">Date au format JJ/MM/AAAA</span></p>
+<p><label for="id_tag">Tag en relation avec la situation vécue :</label> <select name="tag" required id="id_tag" multiple="multiple">
+  <option value="4">Famille</option>
+
+  <option value="5">Travail</option>
+
+  <option value="18">Amis</option>
+
+  <option value="19">Loisirs</option>
+
+</select></p>
     <button type="submit">Enregitrer</button>
   </form>
 </p>

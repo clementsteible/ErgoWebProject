@@ -4,8 +4,8 @@
 
 {% block content %}
     {% if user.is_authenticated %}
-	<div id="content">
-		<p> Emotion : </p>
+<div id="content">
+		<!--<p> Emotion : </p>
 		<select>
 	  		<option value="joie">Joie</option>
 	  		<option value="tristesse">Tristesse</option>
@@ -14,9 +14,27 @@
 		</select>
 		<button class="boutons"> Journée </button>
 		<button class="boutons"> Semaine </button>
-		<button class="boutons"> Mois </button>
-	</div>
-    <a href="{% url 'showimage' %}"> Visionner le graphique</a>
+		<button class="boutons"> Mois </button>-->
+    {{colUtilisateur}}{{dateDebut}}{{dateFin}}
+    <p><form method="POST">{% csrf_token %}
+    <p><label for="id_dateDeDebut">Date de début :</label> <input type="text" name="dateDeDebut" required id="id_dateDeDebut" /> <span class="helptext">Dates au format JJ/MM/AAAA</span></p>
+    <p><label for="id_dateDeFin">Date de fin :</label> <input type="text" name="dateDeFin" required id="id_dateDeFin" /></p>
+    <p><label for="id_emotion">Emotion:</label> <select name="emotion" id="id_emotion">
+      <option value="TO" selected>Toutes</option>
+
+      <option value="JO">Joie</option>
+
+      <option value="CO">Colère</option>
+
+      <option value="TR">Tristesse</option>
+
+      <option value="DE">Dégoût</option>
+
+      <option value="PE">Peur</option>
+
+</select></p>
+    <button type="submit">Valider</button>
+  </form></p>
     {% else %}
     <p>Connectez-vous pour voir vos statistiques.</p>
     <a href="{% url 'login' %}">Se connecter</a>

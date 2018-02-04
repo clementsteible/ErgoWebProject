@@ -1,18 +1,18 @@
 from django.shortcuts import render
+from django.http import HttpResponse
+from django.contrib.auth import login, authenticate
+from django.shortcuts import render, redirect
+from django.contrib.auth.models import User
 from colonnes.models import Colonne, Tag, Emotion, Statistiques
 from colonnes.forms import ColonneForm, AjoutTagForm, AjoutEmotionForm, StatistiquesForm, EnvoieMailForm
 from .forms import SignUpForm
 from django.shortcuts import redirect
 from matplotlib import pyplot as PLT
-import numpy as NP
 from io import BytesIO, StringIO
 import PIL
-import pylab
 from PIL import Image
-from django.http import HttpResponse
-from django.contrib.auth import login, authenticate
-from django.shortcuts import render, redirect
-from django.contrib.auth.models import User
+import pylab
+import numpy as NP
 from datetime import datetime
 from django.utils import timezone
 from django.core.mail import send_mail
@@ -40,8 +40,33 @@ def journal(request):
     return render(request, 'colonnes/journal.html', {})
 
 def statistiques(request):
-    return render(request, 'colonnes/statistiques.html', {})
+    global dateDebut
+    global dateFin
+    if request.method == "POST":
+        formStatistiques = StatistiquesForm(request.POST)
+        dateDebut = request.POST.get('dateDeDebut')
+        dateFin = request.POST.get('dateDeFin')
 
+
+
+    return render(request, 'colonnes/statistiques.html', {'dateDebut':dateDebut,'dateFin':dateFin})
+"""
+
+        colUtilisateur = Colonne.objects.filter(utilisateur=request.user)
+        colPeriode = colUtilisateur.filter(date_event__range=(dateDebut,dateFin))
+        emotionStats = formStatistiques.Emotion
+        #On récupère les colonnes correspondantes respectivement à chaque émotion
+        colJoie = colPeriode.filter(emotion__contains='JO')
+        colTristesse = colPeriode.filter(emotion__contains='TR')
+        colColere = colPeriode.filter(emotion__contains='CO')
+        colDegout = colPeriode.filter(emotion__contains='DE')
+        colPeur = colPeriode.filter(emotion__contains='PE')
+        if emotionStats == formStatistiques.is_valid():
+            if emotionStats == "TO":
+
+def statistiques(request):
+    return render(request, 'colonnes/statistiques.html', {})
+"""
 def developpement_personnel(request):
     return render(request, 'colonnes/developpement_personnel.html', {})
 

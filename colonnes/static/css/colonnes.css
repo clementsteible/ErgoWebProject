@@ -10,16 +10,26 @@ text-align : center;
 
 }
 
+footer{
+   position: fixed;
+   left:60%; /* décalé le div de 50% de la gauche */
+   text-align: center;
+   padding-bottom: 0;
+   bottom: 0;
+   width: 300px;
+   height: 22px;
+   }
+
 #logo_ebeck{
 padding: 5px;
 text-align : center;
 }
 
-a:link 
-{ 
+a:link
+{
   color : #0099ff;
-  text-decoration: none; 
-} 
+  text-decoration: none;
+}
 
 #paragraphe {
   margin-left : 20px;

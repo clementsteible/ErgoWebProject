@@ -42,19 +42,22 @@
           </div>
       </div>
 
-    {% if user.is_authenticated %}
-      <div id="footer">
-         {{ user.username }} -
-        <a href="{% url 'logout' %}">Deconnexion</a>
-      </div>
-    {% else %}
+      <footer>
+        {% if user.is_authenticated %}
+        <div id="footer">
+          {{ user.username }} -
+          <a href="{% url 'logout' %}">Deconnexion</a>
+        </div>
+        {% else %}
         <a href="{% url 'login' %}">Se connecter</a>
-    {% endif %}
+        {% endif %}
+      </footer>
 
       <script type="text/javascript" src="{% static "js/jquery-3.2.1.js" %}"></script>
       <script type="text/javascript" src="{% static "js/students.js" %}"></script>
 
 
     </body>
+
 
 </html>

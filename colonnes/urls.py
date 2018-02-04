@@ -26,4 +26,6 @@ urlpatterns = [
     path('showimage/', views.showimage, name='showimage'),
     #Page d'identification
     path('signup/', views.signup, name='signup'),
+    #Page d'envoie de mail
+    path('envoiemail/', views.envoiemail, name='envoiemail'),
 ]

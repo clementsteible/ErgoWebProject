@@ -15,7 +15,11 @@
 		<button class="boutons"> Journée </button>
 		<button class="boutons"> Semaine </button>
 		<button class="boutons"> Mois </button>-->
-    {{colUtilisateur}}{{dateDebut}}{{dateFin}}
+    {{listeEmotion}}
+    {{dateDebut}}
+    {{dateFin}}
+    {{emotionStats}}
+    {{colPeriode}}
     <p><form method="POST">{% csrf_token %}
     <p><label for="id_dateDeDebut">Date de début :</label> <input type="text" name="dateDeDebut" required id="id_dateDeDebut" /> <span class="helptext">Dates au format JJ/MM/AAAA</span></p>
     <p><label for="id_dateDeFin">Date de fin :</label> <input type="text" name="dateDeFin" required id="id_dateDeFin" /></p>

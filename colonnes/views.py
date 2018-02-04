@@ -13,7 +13,7 @@ import PIL
 from PIL import Image
 import pylab
 import numpy as NP
-from datetime import datetime
+from datetime import datetime, timedelta
 from django.utils import timezone
 
 # Create your views here.
@@ -39,16 +39,51 @@ def journal(request):
     return render(request, 'colonnes/journal.html', {})
 
 def statistiques(request):
-    global dateDebut
-    global dateFin
-    if request.method == "POST":
-        formStatistiques = StatistiquesForm(request.POST)
-        dateDebut = request.POST.get('dateDeDebut')
-        dateFin = request.POST.get('dateDeFin')
+        #On instancie les variables globales:
+            #Les dates
+        dateDebut = datetime.now()
+        dateFin = datetime.now()
+            #Les colonnes de l'utilisateur connecté
+        colPeriode = Colonne.objects.filter(utilisateur=request.user)
+            #Une variable String à vide
+        emotionStats =''
+            #Une liste contenant les codes ""émotions", ces codes correspondent respectivement à : Joie, Peur, Tristess, Colère, Dégoût
+        listeEmotion = ["JO","PE","TR","CO","DE"]
+
+        if request.method == "POST":
+            formStatistiques = StatistiquesForm(request.POST)
+            if formStatistiques.is_valid():
+                stats = formStatistiques.save(commit=False)
+                #On sauvegarde le temps de récupérer les valeurs des champs
+                stats.save()
+                #On récupère la date de début du formulaire
+                dateDebut = stats.dateDeDebut
+                #Comme l'heure est initialisée à minuit on récupère la date de fin du formulaire et on lui ajoute un jour
+                dateFin = stats.dateDeFin + timedelta(days=1)
+                #On récupère la valeur du champ émotion
+                emotionStats = stats.emotion
+                #On supprime directement les valeurs dans la base de données pour ne pas créer de conflits potentiels futurs
+                stats.delete()
+                #... puis on récupère les colonnes ayant une date contenue entre la date de début et la date de fin entrées dans le formulaire
+                colPeriode = Colonne.objects.filter(date_event__range=(dateDebut,dateFin))
+                #Si l'utilisateur a choisi l'option 'Toutes' pour le champ 'Émotion' du formulaire nous allons lui afficher les moyennes les intensités respectivement pour chacune des émotions
+                if emotionStats == 'TO':
+                    #On récupère toutes les queryset des colonnes pour chaque Emotion :
+                        #On délcare un compteur qui servira à parcourir la liste
+                    i=0
+                        #Pour chaque élément de la liste on instancie les colonnes de l'utilisateur contenant tles émotions respectives
+                    for emotions in listeEmotion:
+                        listeEmotion[i] = colPeriode.filter(emotion__contains=emotions)
+                        i=i+1
 
 
+                    return render(request, 'colonnes/statistiques.html', {'listeEmotion':listeEmotion, 'colPeriode':colPeriode, 'dateDebut':dateDebut,'dateFin':dateFin, 'emotionStats':emotionStats, 'formStatistiques':formStatistiques})
 
-    return render(request, 'colonnes/statistiques.html', {'dateDebut':dateDebut,'dateFin':dateFin})
+            return render(request, 'colonnes/statistiques.html', {'listeEmotion':listeEmotion, 'colPeriode':colPeriode, 'dateDebut':dateDebut,'dateFin':dateFin, 'emotionStats':emotionStats, 'formStatistiques':formStatistiques})
+
+        else :
+            formStatistiques = StatistiquesForm()
+            return render(request, 'colonnes/statistiques.html', {'listeEmotion':listeEmotion, 'colPeriode':colPeriode, 'dateDebut':dateDebut,'dateFin':dateFin, 'emotionStats':emotionStats, 'formStatistiques':formStatistiques})
 """
 
         colUtilisateur = Colonne.objects.filter(utilisateur=request.user)

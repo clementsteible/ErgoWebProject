@@ -85,13 +85,5 @@ class Conseil(models.Model):
 
 
 class Lien_Ut_Th(models.Model):
-<<<<<<< HEAD
     user = models.ForeignKey(User, related_name='%(class)s_utilisateur', on_delete=models.CASCADE)
     ther = models.ForeignKey(User, related_name='%(class)s_therapeute', on_delete=models.CASCADE)
-=======
-        user = models.ForeignKey(User, related_name='%(class)s_utilisateur', on_delete=models.CASCADE)
-        ther = models.ForeignKey(User, related_name='%(class)s_therapeute', on_delete=models.CASCADE)
-
-
-#Test Bug
->>>>>>> 80b27cbf88f376502c45c0600e05395318fd18e3

@@ -14,7 +14,8 @@
       {{messageEnregistrementTagValide}}
     <p>
       <form method="POST">{% csrf_token %}
-        {{formTag.as_p}}
+        <!--{{formTag.as_p}} et ci-dessus sa version HTML standardisée, favorable aux modifications CSS-->
+        <p><label for="id_nom_tag">Nom du nouveau Tag à ajouter :</label> <input type="text" name="nom_tag" maxlength="30" required id="id_nom_tag" /></p>
         <button type="submit">Ajouter un Tag</button>
       </form>
     </p>

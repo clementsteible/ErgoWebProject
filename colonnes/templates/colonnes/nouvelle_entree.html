@@ -5,7 +5,7 @@
 {% block content %}
 <p> {{messageEnregistrementColonneValide}}</p>
 <p><form method="POST">{% csrf_token %}
-    <!--{{formColonne.as_p}}-->
+    <!--{{formColonne.as_p}} son équivalent au format html standard, plus facile pour le CSS-->
     <p><label for="id_situation">Situation :</label> <textarea name="situation" cols="40" rows="10" maxlength="1000" required id="id_situation">
 </textarea></p>
 <p><label for="id_pensee_aut">Pensées automatiques :</label> <textarea name="pensee_aut" cols="40" rows="10" maxlength="500" required id="id_pensee_aut">

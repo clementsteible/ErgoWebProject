@@ -4,7 +4,7 @@ from django.contrib.auth import login, authenticate
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from colonnes.models import Colonne, Tag, Emotion, Statistiques
-from colonnes.forms import ColonneForm, AjoutTagForm, AjoutEmotionForm, StatistiquesForm
+from colonnes.forms import ColonneForm, AjoutTagForm, AjoutEmotionForm, StatistiquesForm, EnvoieMailForm
 from .forms import SignUpForm
 from django.shortcuts import redirect
 from matplotlib import pyplot as PLT
@@ -15,6 +15,7 @@ import pylab
 import numpy as NP
 from datetime import datetime, timedelta
 from django.utils import timezone
+from django.core.mail import send_mail
 
 # Create your views here.
 
@@ -163,6 +164,20 @@ def signup(request):
     else:
         formSignUp = SignUpForm()
     return render(request, 'colonnes/signup.html', {'formSignUp': formSignUp})
+
+def envoiemail(request):
+    if request.method == 'POST':
+        formEnvoieMail = EnvoieMailForm(request.POST)
+        if formEnvoieMail.is_valid():
+            subject = formEnvoieMail.cleaned_data['objet']
+            message = formEnvoieMail.cleaned_data['situation']
+            sender = formEnvoieMail.cleaned_data['votre_email']
+            recipients = formEnvoieMail.cleaned_data['email_therapeute']
+            send_mail(subject, message, sender, recipients)        
+            return render(request, 'colonnes/parametres.html', {})
+    else :
+        formEnvoieMail = EnvoieMailForm()
+    return render(request, 'colonnes/envoiemail.html', {'formEnvoieMail': formEnvoieMail})
 
 """
 def inscription(request):

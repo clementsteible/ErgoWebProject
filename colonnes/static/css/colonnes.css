@@ -51,6 +51,10 @@ padding: 0px;
 border: none;
 }
 
+span {
+  font-style: italic;
+}
+
 #boutons_menu{
   padding: 0px;
 }
@@ -183,6 +187,27 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b6ecfe', end
      margin-left: auto;
      margin-right: auto;
     font-size: 1.5em;
+}
+
+#bouton_valider_nouvelle_colonne {
+  color: black;
+  background: #b3e0ff;
+  background: #b6ecfe; /* Old browsers */
+  background: -moz-linear-gradient(top, #b6ecfe 0%, #97e0f7 23%, #97e0f7 23%, #97e0f7 45%, #97e0f7 74%, #97e0f7 74%, #5bd3fb 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, #b6ecfe 0%,#97e0f7 23%,#97e0f7 23%,#97e0f7 45%,#97e0f7 74%,#97e0f7 74%,#5bd3fb 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, #b6ecfe 0%,#97e0f7 23%,#97e0f7 23%,#97e0f7 45%,#97e0f7 74%,#97e0f7 74%,#5bd3fb 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b6ecfe', endColorstr='#5bd3fb',GradientType=0 );
+     -moz-border-radius: 10px;
+     -webkit-border-radius: 10px;
+     border-radius: 10px;
+  float : left;
+  display: block;
+  text-align: center;
+  margin-left: 5%;
+  margin-right: auto;
+  margin-top: 80px;
+  width : 40%;
+  font-size: 1.5em;
 }
 
 #titre_authentification{

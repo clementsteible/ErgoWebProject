@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.contrib.auth import login, authenticate
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
-from colonnes.models import Colonne, Tag, Emotion, Statistiques
+from colonnes.models import Colonne, Tag, Emotion, Statistiques, Lien_Ut_Th
 from colonnes.forms import ColonneForm, AjoutTagForm, AjoutEmotionForm, StatistiquesForm, EnvoieMailForm
 from .forms import SignUpForm
 from django.shortcuts import redirect
@@ -18,6 +18,7 @@ import numpy as np
 from datetime import datetime, timedelta
 from django.utils import timezone
 from django.core.mail import send_mail
+from django.core import mail
 
 # Create your views here.
 
@@ -256,13 +257,27 @@ def envoiemail(request):
     if request.method == 'POST':
         formEnvoieMail = EnvoieMailForm(request.POST)
         if formEnvoieMail.is_valid():
+            connection = mail.get_connection()
+            connection.open()
             subject = formEnvoieMail.cleaned_data['objet']
-            message = formEnvoieMail.cleaned_data['situation']
+            message = 'Situation : \n ' + formEnvoieMail.cleaned_data['situation'] + '\n Pensée automatique : \n' + formEnvoieMail.cleaned_data['pensée_automatique'] + '\n Pensée alternative : \n' + formEnvoieMail.cleaned_data['pensée_alternative'] + '\n Emotion ressentie :\n' + formEnvoieMail.cleaned_data['emotion_ressentie'] + '\n Intensité automatique : \n' + str(formEnvoieMail.cleaned_data['intensité_automatique']) + '\n Intensité alternative : \n' + str(formEnvoieMail.cleaned_data['intensité_alternative'])
             sender = formEnvoieMail.cleaned_data['votre_email']
             recipients = formEnvoieMail.cleaned_data['email_therapeute']
+<<<<<<< HEAD
+            email = mail.EmailMessage(subject, message, sender, [recipients])
+            connection.send_messages([email])
+            connection.close()        
+=======
             send_mail(subject, message, sender, recipients)
+>>>>>>> 5bcfcf7bfb425c77250d608232dd488b778a1587
             return render(request, 'colonnes/parametres.html', {})
+    # sinon si l'utilisateur ne vient pas d'envoyer le formulaire
     else :
-        #formEnvoieMail.votre_email.value = request.user.email;
-        formEnvoieMail = EnvoieMailForm()
+        email = request.user.email #je récupère le mail de l'utilisateur
+        lien_th_ut = Lien_Ut_Th.objects.get(pati=request.user) #je récupère l'objet du lien entre lui et son thérapeute
+        therapeute = lien_th_ut.ther # à partir de l'objet récupéré, je récupère le thérapeute qui est une instance du modèle User
+        pensees = Colonne.objects.filter(utilisateur=request.user)
+        pensee = pensees[1]
+        date_ajout = 'Pensée du ' + str(pensee.date_ajout) 
+        formEnvoieMail = EnvoieMailForm(initial ={'votre_email': email, 'email_therapeute': therapeute.email, 'objet': date_ajout, 'situation': pensee.situation,'pensée_automatique': pensee.pensee_aut, 'pensée_alternative': pensee.pensee_alt, 'emotion_ressentie': pensee.emotion,'intensité_automatique': pensee.intensiteAut, 'intensité_alternative' : pensee.intensiteAlt})
     return render(request, 'colonnes/envoiemail.html', {'formEnvoieMail': formEnvoieMail})

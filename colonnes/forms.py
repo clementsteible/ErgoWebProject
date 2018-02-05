@@ -26,14 +26,9 @@ class AjoutTagForm(forms.ModelForm):
 
 #formulaire d'envoi de mail
 class EnvoieMailForm(forms.Form):
-    """
-    
-    therapeute = Lien_Ut_Th.objects.filter(pati.first_name=user.first_name)
-    patient = forms.CharField(initial=name_patient)
-    mail_therapeute = forms.EmailField(initial=therapeute.email)"""
-    
+
     votre_email = forms.EmailField(max_length=254, required=True)
-    objet = forms.CharField(max_length=30, required=True)
+    objet = forms.CharField(max_length=300, required=True)
     email_therapeute = forms.EmailField(max_length=254, required=True)
     situation = forms.CharField(widget=forms.Textarea)
     pensée_automatique= forms.CharField(widget=forms.Textarea)

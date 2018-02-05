@@ -10,7 +10,7 @@
     <a href="{% url 'login' %}">Se connecter</a>
     {% endif %}
 
-
+    <div id="content">
       {{messageEnregistrementTagValide}}
     <p>
       <form method="POST">{% csrf_token %}
@@ -20,6 +20,7 @@
       </form>
     </p>
     <button class="boutons"> <a href="{% url 'envoiemail' %}">Envoyer un mail au thérapeute</a> </button>
+  </div>
 {% endblock %}
 
 </div>

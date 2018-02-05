@@ -5,7 +5,7 @@ from .models import Lien_Ut_Th
 #Importation du modèle Colonne
 admin.site.register(Colonne)
 #Importation du modèle Emotion
-admin.site.register(Emotion)
+#admin.site.register(Emotion)
 #Importation du modèle Tag
 admin.site.register(Tag)
 #Importation du modèle Conseil

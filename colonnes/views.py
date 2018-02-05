@@ -7,12 +7,14 @@ from colonnes.models import Colonne, Tag, Emotion, Statistiques
 from colonnes.forms import ColonneForm, AjoutTagForm, AjoutEmotionForm, StatistiquesForm, EnvoieMailForm
 from .forms import SignUpForm
 from django.shortcuts import redirect
-from matplotlib import pyplot as PLT
+import matplotlib
+from matplotlib import pyplot as plt
+from matplotlib.backends.backend_agg import FigureCanvasAgg
 from io import BytesIO, StringIO
 import PIL
 from PIL import Image
 import pylab
-import numpy as NP
+import numpy as np
 from datetime import datetime, timedelta
 from django.utils import timezone
 from django.core.mail import send_mail
@@ -51,6 +53,8 @@ def statistiques(request):
         emotionStats =''
             #Une liste contenant les codes ""émotions", ces codes correspondent respectivement à : Joie, Peur, Tristess, Colère, Dégoût
         listeEmotion = ["JO",'PE',"TR","CO","DE"]
+            #Une liste qui contiendra les QuerySets à trier
+        listeDonnees = [0, 0, 0, 0, 0]
 
         if request.method == "POST":
             formStatistiques = StatistiquesForm(request.POST)
@@ -73,21 +77,143 @@ def statistiques(request):
                     #On récupère toutes les queryset des colonnes pour chaque Emotion :
                         #On délcare un compteur qui servira à parcourir la liste
                     i=0
-                        #Pour chaque élément de la liste on instancie les colonnes de l'utilisateur contenant tles émotions respectives
+                        #On instancie une nouvelle liste catégorisant les colonnes selon leur attribut emotion
                     for emotions in listeEmotion:
-                        listeEmotion[i] = colPeriode.filter(emotion__contains=emotions)
+                        listeDonnees[i] = colPeriode.filter(emotion__contains=emotions)
                         i=i+1
 
-                    nbrCO = listeEmotion[3].count()
+                    nbrCO = listeDonnees[3].count()
+                    #On instancie une liste pour chaque émotion, chaque liste contient les
+                    colJO = listeDonnees[0]
+                    listeJO = list(colJO)
+
+                    colPE = listeDonnees[1]
+                    listePE = list(colPE)
+
+                    colTR = listeDonnees[2]
+                    listeTR = list(colTR)
+
+                    colCO = listeDonnees[3]
+                    listeCO = list(colCO)
+
+                    colDE = listeDonnees[4]
+                    listeDE = list(colDE)
+
+                    #On instancie également les variables qui nous serviront pour calculer les moyennes des attributs d'intensités automatique et alternative
+                    intAutJO = 0
+                    intAltJO = 0
+
+                    intAutPE = 0
+                    intAltPE = 0
+
+                    intAutTR = 0
+                    intAltTR = 0
+
+                    intAutCO = 0
+                    intAltCO = 0
+
+                    intAutDE = 0
+                    intAltDE = 0
 
 
-                    return render(request, 'colonnes/statistiques.html', {'nbrCO':nbrCO,'listeEmotion':listeEmotion, 'colPeriode':colPeriode, 'dateDebut':dateDebut,'dateFin':dateFin, 'emotionStats':emotionStats, 'formStatistiques':formStatistiques})
+                    #Pour chaque liste et donc chaque émotion on fait la somme des attributs d'intensité automatique et alternative
+                    i=0
+                    for elt in listeJO:
+                        intAutJO = intAutJO + listeJO[i].intensiteAut
+                        intAltJO = intAltJO + listeJO[i].intensiteAlt
+                        i = i +1
 
-            return render(request, 'colonnes/statistiques.html', {'listeEmotion':listeEmotion, 'colPeriode':colPeriode, 'dateDebut':dateDebut,'dateFin':dateFin, 'emotionStats':emotionStats, 'formStatistiques':formStatistiques})
+                    i=0
+                    for elt in listePE:
+                        intAutPE = intAutPE + listePE[i].intensiteAut
+                        intAltPE = intAltPE + listePE[i].intensiteAlt
+                        i = i +1
+
+                    i=0
+                    for elt in listeTR:
+                        intAutTR = intAutTR + listeTR[i].intensiteAut
+                        intAltTR = intAltTR + listeTR[i].intensiteAlt
+                        i = i +1
+
+                    i=0
+                    for elt in listeCO:
+                        intAutCO = intAutCO + listeCO[i].intensiteAut
+                        intAltCO = intAltCO + listeCO[i].intensiteAlt
+                        i = i +1
+
+                    i=0
+                    for elt in listeDE:
+                        intAutDE = intAutDE + listeDE[i].intensiteAut
+                        intAltDE = intAltDE + listeDE[i].intensiteAlt
+                        i = i +1
+
+                    #On instancie les variables des moyennes de l'intensité Automatique et Alternative pour les récupérer plus tard
+                    moyIntAutJO = 0
+                    moyIntAltJO = 0
+                    #On compte le nombre d'éléments dans la liste pour calculer la moyenne
+                    compteurJO = len(listeJO)
+                    #Pour chaque émotion on calcule les moyennes de l'intensite Automatique et Alternative si l'intensite !=0, c'est à dire s'il existe au moins une colonne avec une telle émotion
+                    if compteurJO > 0:
+                        moyIntAutJO = intAutJO / compteurJO
+                        moyIntAltJO = intAltJO / compteurJO
+
+                    moyIntAutPE = 0
+                    moyIntAltPE = 0
+                    compteurPE = len(listePE)
+                    if compteurPE > 0:
+                        moyIntAutPE = intAutPE / compteurPE
+                        moyIntAltPE = intAltPE / compteurPE
+
+                    moyIntAutTR = 0
+                    moyIntAltTR = 0
+                    compteurTR = len(listeTR)
+                    if compteurTR > 0:
+                        moyIntAutTR = intAutTR / compteurTR
+                        moyIntAltTR = intAltTR / compteurTR
+
+                    moyIntAutCO = 0
+                    moyIntAltCO = 0
+                    compteurCO = len(listeCO)
+                    if compteurCO > 0:
+                        moyIntAutCO = intAutCO / compteurCO
+                        moyIntAltCO = intAltCO / compteurCO
+
+                    moyIntAutDE = 0
+                    moyIntAltDE = 0
+                    compteurDE = len(listeDE)
+                    if compteurDE > 0:
+                        moyIntAutDE = intAutDE / compteurDE
+                        moyIntAltDE = intAltDE / compteurDE
+
+
+                    #On dessine le graphique avec matplotlib
+                    f = plt.figure()
+                    aut = [moyIntAutJO,moyIntAutPE,moyIntAutTR,moyIntAutCO,moyIntAutDE]
+                    alt = [moyIntAltJO,moyIntAltPE,moyIntAltTR,moyIntAltCO,moyIntAltDE]
+                    plt.title('Intensités moyennes pour chaque émotion du : '+ dateDebut.strftime("%d/%m/%Y") + ' au ' + dateFin.strftime("%d/%m/%Y"))
+                    plt.ylabel('Intensité Moyenne')
+                    plt.ylim(0,10)
+                    barWidth = 0.5
+                    r1 = range(len(aut))
+                    r2 = [x + barWidth for x in r1]
+                    b1 = plt.bar(r1, aut, width = barWidth, color = ['red' for i in aut], edgecolor = 'none', linewidth = 2)
+                    b2 = plt.bar(r2, alt, width = barWidth, color = ['green' for i in aut], edgecolor = 'none', linewidth = 4)
+                    plt.xticks([0.25,1.25,2.25,3.25,4.25], ['Joie', 'Peur', 'Tristesse', 'Colère', 'Dégoût'])
+                    plt.legend((b1[0],b2[0]),("Pensée Automatique","Pensée Alternative"))
+
+                    canvas = FigureCanvasAgg(f)
+                    response = HttpResponse(content_type='image/png')
+                    canvas.print_png(response)
+                    matplotlib.pyplot.close(f)
+
+                #return render(request, 'colonnes/statistiques.html', {'moyIntAutJO':moyIntAutJO,'moyIntAltJO':moyIntAltJO,'moyIntAutPE':moyIntAutPE,'moyIntAltPE':moyIntAltPE,'moyIntAutTR':moyIntAltTR,'moyIntAutCO':moyIntAutCO,'moyIntAutDE':moyIntAutDE,'moyIntAltDE':moyIntAltDE,'formStatistiques':formStatistiques})
+                return response
+
+            return render(request, 'colonnes/statistiques.html', {'formStatistiques':formStatistiques})
 
         else :
             formStatistiques = StatistiquesForm()
-            return render(request, 'colonnes/statistiques.html', {'listeEmotion':listeEmotion, 'colPeriode':colPeriode, 'dateDebut':dateDebut,'dateFin':dateFin, 'emotionStats':emotionStats, 'formStatistiques':formStatistiques})
+            return render(request, 'colonnes/statistiques.html', {'formStatistiques':formStatistiques})
 
 def developpement_personnel(request):
     return render(request, 'colonnes/developpement_personnel.html', {})
@@ -107,32 +233,6 @@ def parametres(request):
     return render(request, 'colonnes/parametres.html', {'formTag':formTag})
 
 def showimage(request):
-    # je récupère la personne
-    #per = Personne.objects.get(id=1)
-    #col = per.colonne_set.get(id=1)
-    #emo = col.emo_aut.filter(statut_emo='Joie')
-    #return HttpResponse(emo)
-    periode = '30 derniers jours'
-    emotion = 'la Peur '
-    # Construct the graph
-    t = NP.arange(0.0, 2.0, 0.01)
-    s = NP.sin(2*NP.pi*t)
-    PLT.plot(t, s, linewidth=1.0)
-
-    PLT.xlabel("Date des entrées de "+ emotion)
-    PLT.ylabel("Intensité de "+ emotion)
-    PLT.title("Evolution de l'intensité de " + emotion + "sur les " + periode)
-    PLT.grid(True)
-
-    # Store image in a string buffer
-    buffer = BytesIO()
-    canvas = pylab.get_current_fig_manager().canvas
-    canvas.draw()
-    statistiques = PIL.Image.frombytes("RGB", canvas.get_width_height(), canvas.tostring_rgb())
-    statistiques.save(buffer, "PNG")
-    pylab.close()
-
-    # Send buffer in a http response the the browser with the mime type image/png set
     return HttpResponse(buffer.getvalue(), content_type="image/png")
 
 def login(request):

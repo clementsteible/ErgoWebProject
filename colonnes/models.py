@@ -87,3 +87,5 @@ class Conseil(models.Model):
 class Lien_Ut_Th(models.Model):
     pati = models.ForeignKey(User, related_name='%(class)s_utilisateur', on_delete=models.CASCADE)
     ther = models.ForeignKey(User, related_name='%(class)s_therapeute', on_delete=models.CASCADE)
+    def __str__(self):
+        return '%s %s' % (self.pati, self.ther)

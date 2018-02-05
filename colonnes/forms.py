@@ -9,16 +9,22 @@ class StatistiquesForm(forms.ModelForm):
         model = Statistiques
         fields = ('dateDeDebut', 'dateDeFin', 'emotion')
 
+#formulaire pour ajouter une pensée
 class ColonneForm(forms.ModelForm):
+
+    #comme il hérite de ModeLForm, je dois lui préciser la classe Meta et ...
+    #... donc le modèle sur lequel il s'appuie pour faire le formulaire
     class Meta:
         model = Colonne
         fields = ('situation', 'pensee_aut', 'emotion', 'intensiteAut', "pensee_alt", 'intensiteAlt', "date_event",'tag')
 
+#formulaire pour ajouter un tag dans les paramètres
 class AjoutTagForm(forms.ModelForm):
     class Meta:
         model = Tag
         fields = ('nom_tag',)
 
+#formulaire d'envoi de mail
 class EnvoieMailForm(forms.Form):
     """
     
@@ -36,11 +42,13 @@ class EnvoieMailForm(forms.Form):
     intensité_automatique = forms.IntegerField()
     intensité_alternative = forms.IntegerField()
 
+#formulaire pour ajouter une émotion
 class AjoutEmotionForm(forms.ModelForm):
     class Meta:
         model = Emotion
         fields = ('statut_emo',)
 
+#formulaire pour s'authentifier
 class SignUpForm(UserCreationForm):
     first_name = forms.CharField(max_length=30, required=False, help_text='Optional.')
     last_name = forms.CharField(max_length=30, required=False, help_text='Optional.')

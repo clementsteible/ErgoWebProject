@@ -22,6 +22,7 @@ from django.core.mail import send_mail
 def deverouillage(request):
     return render(request, 'colonnes/deverouillage.html', {})
 
+# view pour ajouter une nouvelle pensée
 def nouvelle_entree(request):
     if request.method == "POST":
         formColonne = ColonneForm(request.POST)
@@ -162,5 +163,6 @@ def envoiemail(request):
             send_mail(subject, message, sender, recipients)
             return render(request, 'colonnes/parametres.html', {})
     else :
+        #formEnvoieMail.votre_email.value = request.user.email;
         formEnvoieMail = EnvoieMailForm()
     return render(request, 'colonnes/envoiemail.html', {'formEnvoieMail': formEnvoieMail})

@@ -32,7 +32,7 @@ class Tag(models.Model):
 
 class Emotion(models.Model):
     utilisateur = models.ForeignKey(User, on_delete=models.CASCADE)
-    statut_emo = models.CharField(max_length=30, blank=False, help_text = "Non de l'émotion")
+    statut_emo = models.CharField(max_length=30, blank=False, help_text = "Nom de l'émotion")
 
     def __str__(self):              # __unicode__ on Python 2
         return self.statut_emo

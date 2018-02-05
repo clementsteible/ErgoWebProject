@@ -51,7 +51,7 @@ def statistiques(request):
             #Une variable String à vide
         emotionStats =''
             #Une liste contenant les codes ""émotions", ces codes correspondent respectivement à : Joie, Peur, Tristess, Colère, Dégoût
-        listeEmotion = ["JO","PE","TR","CO","DE"]
+        listeEmotion = ["JO",'PE',"TR","CO","DE"]
 
         if request.method == "POST":
             formStatistiques = StatistiquesForm(request.POST)
@@ -79,31 +79,17 @@ def statistiques(request):
                         listeEmotion[i] = colPeriode.filter(emotion__contains=emotions)
                         i=i+1
 
+                    nbrCO = listeEmotion[3].count()
 
-                    return render(request, 'colonnes/statistiques.html', {'listeEmotion':listeEmotion, 'colPeriode':colPeriode, 'dateDebut':dateDebut,'dateFin':dateFin, 'emotionStats':emotionStats, 'formStatistiques':formStatistiques})
+
+                    return render(request, 'colonnes/statistiques.html', {'nbrCO':nbrCO,'listeEmotion':listeEmotion, 'colPeriode':colPeriode, 'dateDebut':dateDebut,'dateFin':dateFin, 'emotionStats':emotionStats, 'formStatistiques':formStatistiques})
 
             return render(request, 'colonnes/statistiques.html', {'listeEmotion':listeEmotion, 'colPeriode':colPeriode, 'dateDebut':dateDebut,'dateFin':dateFin, 'emotionStats':emotionStats, 'formStatistiques':formStatistiques})
 
         else :
             formStatistiques = StatistiquesForm()
             return render(request, 'colonnes/statistiques.html', {'listeEmotion':listeEmotion, 'colPeriode':colPeriode, 'dateDebut':dateDebut,'dateFin':dateFin, 'emotionStats':emotionStats, 'formStatistiques':formStatistiques})
-"""
 
-        colUtilisateur = Colonne.objects.filter(utilisateur=request.user)
-        colPeriode = colUtilisateur.filter(date_event__range=(dateDebut,dateFin))
-        emotionStats = formStatistiques.Emotion
-        #On récupère les colonnes correspondantes respectivement à chaque émotion
-        colJoie = colPeriode.filter(emotion__contains='JO')
-        colTristesse = colPeriode.filter(emotion__contains='TR')
-        colColere = colPeriode.filter(emotion__contains='CO')
-        colDegout = colPeriode.filter(emotion__contains='DE')
-        colPeur = colPeriode.filter(emotion__contains='PE')
-        if emotionStats == formStatistiques.is_valid():
-            if emotionStats == "TO":
-
-def statistiques(request):
-    return render(request, 'colonnes/statistiques.html', {})
-"""
 def developpement_personnel(request):
     return render(request, 'colonnes/developpement_personnel.html', {})
 
@@ -177,9 +163,13 @@ def envoiemail(request):
             message = 'Situation : \n ' + formEnvoieMail.cleaned_data['situation'] + '\n Pensée automatique : \n' + formEnvoieMail.cleaned_data['pensée_automatique'] + '\n Pensée alternative : \n' + formEnvoieMail.cleaned_data['pensée_alternative'] + '\n Emotion ressentie :\n' + formEnvoieMail.cleaned_data['emotion_ressentie'] + '\n Intensité automatique : \n' + str(formEnvoieMail.cleaned_data['intensité_automatique']) + '\n Intensité alternative : \n' + str(formEnvoieMail.cleaned_data['intensité_alternative'])
             sender = formEnvoieMail.cleaned_data['votre_email']
             recipients = formEnvoieMail.cleaned_data['email_therapeute']
+<<<<<<< HEAD
             email = mail.EmailMessage(subject, message, sender, [recipients])
             connection.send_messages([email])
             connection.close()        
+=======
+            send_mail(subject, message, sender, recipients)
+>>>>>>> 5bcfcf7bfb425c77250d608232dd488b778a1587
             return render(request, 'colonnes/parametres.html', {})
     # sinon si l'utilisateur ne vient pas d'envoyer le formulaire
     else :
@@ -191,23 +181,3 @@ def envoiemail(request):
         date_ajout = 'Pensée du ' + str(pensee.date_ajout) 
         formEnvoieMail = EnvoieMailForm(initial ={'votre_email': email, 'email_therapeute': therapeute.email, 'objet': date_ajout, 'situation': pensee.situation,'pensée_automatique': pensee.pensee_aut, 'pensée_alternative': pensee.pensee_alt, 'emotion_ressentie': pensee.emotion,'intensité_automatique': pensee.intensiteAut, 'intensité_alternative' : pensee.intensiteAlt})
     return render(request, 'colonnes/envoiemail.html', {'formEnvoieMail': formEnvoieMail})
-
-"""
-def inscription(request):
-    formAuthentification = AuthentificationForm()
-    if request.method == "POST":
-        formInscription = InscriptionForm(request.POST)
-        if formInscription.is_valid():
-            personne = formInscription.save(commit=False)
-            personne.save()
-            return render(request, 'colonnes/authentification.html',  {'formAuthentification':formAuthentification})
-    else :
-        #On ajoute le formulaire d'inscription à la vue
-        formInscription = InscriptionForm(request.POST)
-    return render(request, 'colonnes/inscription.html', {'formInscription':formInscription})
-
-def authentification(request):
-    #On ajoute le formulaire d'authentification à la vue
-    formAuthentification = AuthentificationForm()
-    return render(request, 'colonnes/authentification.html', {'formAuthentification':formAuthentification})
-"""

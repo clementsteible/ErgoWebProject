@@ -55,6 +55,12 @@ span {
   font-style: italic;
 }
 
+#centrerstats{
+  position:relative;
+  left: 135px;
+  top: 20px;
+}
+
 #boutons_menu{
   padding: 0px;
 }
@@ -78,6 +84,7 @@ span {
 #bouton_parametres{
   background-image: url("../images/bouton_parametres.png");
 }
+
 
 /*Les classes, id et autres éléments ci-dessous correspondent à la page
 de déverouillage de l'application web */
@@ -117,7 +124,6 @@ d'authentification de l'application web*/
   margin-top : 40px;
   margin-left : auto;
   margin-right : auto;
-  font-family: "Trebuchet MS", Verdana, Geneva, Arial;
   font-weight: lighter;
   border: 1px solid #696;
   -webkit-border-radius: 12px;
@@ -222,4 +228,90 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b6ecfe', end
     margin: auto;
     width: 50%;
     padding: 10px;
+}
+
+/*Les classes, id et autres éléments ci-dessous correspondent à la page Journal*/
+#situation{
+  font-size: 1.7em;
+  font-weight: bold;
+  text-align: justify;
+}
+
+#pensee_aut{
+  font-size: 1.3em;
+  font-style: italic;
+}
+
+#date{
+  float: right;
+}
+
+/*Pour les titres*/
+h1.titre:before {
+   background: #3399FF;
+   width:40px;
+   content:"";
+   display:inline-block;
+   height:15px;
+   margin-right:10px;
+}
+h1.titre:after {
+   background: #3399FF;
+   width:40px;
+   content:"";
+   display:inline-block;
+   height:15px;
+   margin-left:10px;
+}
+#centrertitre{
+  text-align: center;
+  font-family: 'Roboto Slab', serif;
+}
+
+/*Général*/
+#centrer{
+  text-align: center;
+}
+
+#soustitre{
+  font-size: 1.8em;
+  font-weight: bold;
+  font-family: 'Roboto Slab', serif;
+}
+
+#texte{
+font-size: 1.2em;
+font-family: 'Roboto Slab', serif;
+}
+
+#textecolonne{
+font-size: 1.1em;
+font-family: 'Roboto Slab', serif;
+}
+
+#decalerDroite{
+  position:relative;
+  left:50px;
+}
+
+#boutontherapeute{
+    position:relative;
+    left:60px;
+    top:5px;
+}
+
+
+#titretag{
+
+    font-size: 1.8em;
+    font-weight: bold;
+    font-family: 'Roboto Slab', serif;
+    position:relative;
+    left:89px;
+}
+
+#boutontag{
+  text-align: center;
+  position:relative;
+  top:15px;
 }

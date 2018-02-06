@@ -4,7 +4,15 @@
 
 {% block content %}
     {% if user.is_authenticated %}
-	<p> Bienvenue sur la page de développement personnel</p>
+<h1 id="centrertitre" class="titre">Le Saviez-Vous ?</h1>
+
+{% for conseil in conseils %}
+<div id="content">
+<p id="situation">{{conseil.contenu_conseil}}</p>
+<p id ="pensee_aut">{{conseil.type_conseil}}</p>
+</div>
+{% endfor %}
+
     {% else %}
     <p>Connectez-vous pour voir les conseils de développement personnel.</p>
     <a href="{% url 'login' %}">Se connecter</a>

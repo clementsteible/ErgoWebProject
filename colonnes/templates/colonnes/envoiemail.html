@@ -7,20 +7,7 @@
 
    	<form method="POST">
 	    {% csrf_token %}
-<<<<<<< HEAD
-
-	    <p><label for="id_votre_email">Votre email:</label> <input type="email" value=""name="votre_email" maxlength="254" required="" id="id_votre_email"></p>
-		<p><label for="id_objet">Objet:</label> <input type="text" name="objet" maxlength="30" required="" id="id_objet"></p>
-		<p><label for="id_email_therapeute">Email therapeute:</label> <input type="email" value="{{ therapeute.email }}" name="email_therapeute" maxlength="254" required="" id="id_email_therapeute"></p>
-		<p><label for="id_situation">Situation:</label> <textarea name="situation" cols="40" rows="10" required="" id="id_situation"></textarea></p>
-		<p><label for="id_pensée_automatique">Pensée automatique:</label> <textarea name="pensée_automatique" cols="40" rows="10" required="" id="id_pensée_automatique"></textarea></p>
-		<p><label for="id_pensée_alternative">Pensée alternative:</label> <textarea name="pensée_alternative" cols="40" rows="10" required="" id="id_pensée_alternative"></textarea></p>
-		<p><label for="id_emotion_ressentie">Emotion ressentie:</label> <input type="text" name="emotion_ressentie" maxlength="2" required="" id="id_emotion_ressentie"></p>
-		<p><label for="id_intensité_automatique">Intensité automatique:</label> <input type="number" name="intensité_automatique" required="" id="id_intensité_automatique"></p>
-		<p><label for="id_intensité_alternative">Intensité alternative:</label> <input type="number" name="intensité_alternative" required="" id="id_intensité_alternative"></p>
-=======
 	    {{ formEnvoieMail.as_p }}
->>>>>>> 1035cd6c764b332d547194f29648e59a2133ea63
 	    <button class="boutons" type="submit">Envoyer mail</button>
   	</form>
 

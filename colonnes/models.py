@@ -27,14 +27,14 @@ class Tag(models.Model):
     utilisateur = models.ForeignKey(User, on_delete=models.CASCADE)
     nom_tag = models.CharField(max_length=30, blank=False, help_text = "Entrez un Tag")
 
-    def __str__(self):              # __unicode__ on Python 2
+    def __str__(self):          
         return self.nom_tag
 
 class Emotion(models.Model):
     utilisateur = models.ForeignKey(User, on_delete=models.CASCADE)
     statut_emo = models.CharField(max_length=30, blank=False, help_text = "Nom de l'émotion")
 
-    def __str__(self):              # __unicode__ on Python 2
+    def __str__(self):
         return self.statut_emo
 
 
@@ -73,14 +73,14 @@ class Colonne(models.Model):
     intensiteAlt = models.IntegerField(default=5, choices=INTENSITE)
 
 
-    def __str__(self):              # __unicode__ on Python 2
+    def __str__(self):
         return self.situation
 
 class Conseil(models.Model):
 
     type_conseil = models.CharField(max_length=30, blank=False, help_text = "Type du conseil")
     contenu_conseil = models.CharField(max_length=400, blank=False, help_text = "Contenu du conseil")
-    def __str__(self):              # __unicode__ on Python 2
+    def __str__(self):
         return '%s' % (self.contenu_conseil)
 
 

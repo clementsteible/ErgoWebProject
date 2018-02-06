@@ -22,13 +22,13 @@
       <div id="content">
         <form method="POST" class="post-form">{% csrf_token %}
             <!--{{ formSignUp.as_p }}-->
-            <p><label for="id_username">Pseudonyme :</label> <input type="text" name="username" maxlength="150" autofocus required id="id_username" /> <span class="helptext">Lettres, chiffres, et symbôles @/./+/-/_ sont autorisés.</span></p>
-            <p><label for="id_first_name">Prénom :</label> <input type="text" name="first_name" maxlength="30" id="id_first_name" /> <span class="helptext">Optionnel</span></p>
-            <p><label for="id_last_name">Nom :</label> <input type="text" name="last_name" maxlength="30" id="id_last_name" /> <span class="helptext">Optionnel</span></p>
-            <p><label for="id_email">Email :</label> <input type="email" name="email" maxlength="254" required id="id_email" /></p>
-            <p><label for="id_password1">Mot de passe :</label> <input type="password" name="password1" required id="id_password1" /> <span class="helptext"><ul><li>Votre mot de passe ne peut être similaire à d'autres informations personnelles</li><li>Votre mot de passe doit contenir au moins 8 caractères.</li><li>Votre mot de passe ne peut pas contenir que des chiffres.</li></ul></span></p>
-            <p><label for="id_password2">Confirmation mot de passe :</label> <input type="password" name="password2" required id="id_password2" /></p>
-        <button type="submit" id="submit_inscription_button" class="save btn btn-default"> S'inscrire </button>
+            <p id="texte"><label for="id_username">Pseudonyme :</label> <input type="text" name="username" maxlength="150" autofocus required id="id_username" /> </p><p class="helptext">Seuls les lettres, chiffres, et symbôles @/./+/-/_ sont autorisés.</span></p>
+            <p id="texte"><label for="id_first_name">Prénom :</label> <input type="text" name="first_name" maxlength="30" id="id_first_name" /> </p><p class="helptext">Optionnel</p>
+            <p id="texte"><label for="id_last_name">Nom :</label> <input type="text" name="last_name" maxlength="30" id="id_last_name" /> </p><p class="helptext">Optionnel</p>
+            <p id="texte"><label for="id_email">Email :</label> <input type="email" name="email" maxlength="254" required id="id_email" /></p>
+            <p id="texte"><label for="id_password1">Mot de passe :</label> <input type="password" name="password1" required id="id_password1" /> <span class="helptext"><ul><li>Votre mot de passe ne peut être similaire à d'autres informations personnelles</li><li>Votre mot de passe doit contenir au moins 8 caractères.</li><li>Votre mot de passe ne peut pas contenir que des chiffres.</li></ul></span></p>
+            <p id="texte"><label for="id_password2">Confirmation mot de passe :</label> <input type="password" name="password2" required id="id_password2" /></p>
+        <button type="submit" id="submit_inscription_button" class="btn btn-primary"> S'inscrire </button>
         </form>
       </div>
 

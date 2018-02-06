@@ -1,17 +1,16 @@
 {% extends 'colonnes/base.html' %}
 
-<div>
 
 {% block content %}
-
-  {{moyIntAutTR}}
-  {{moyIntAltTR}}
     {% if user.is_authenticated %}
+<h1 id="centrertitre" class="titre">Statistiques</h1>
 <div id="content">
+    <p id="soustitre" id="centrer">Recherche pour statistiques</p>
     <p><form method="POST">{% csrf_token %}
-    <p><label for="id_dateDeDebut">Date de début :</label> <input type="text" name="dateDeDebut" required id="id_dateDeDebut" /> <span class="helptext">Dates au format JJ/MM/AAAA</span></p>
-    <p><label for="id_dateDeFin">Date de fin :</label> <input type="text" name="dateDeFin" required id="id_dateDeFin" /></p>
-    <p><label for="id_emotion">Emotion:</label> <select name="emotion" id="id_emotion">
+    <p id="texte"><label for="id_dateDeDebut">Date de début :</label> <input type="text" name="dateDeDebut" required id="id_dateDeDebut" /></p>
+    <p id="texte"><label for="id_dateDeFin">Date de fin :</label> <input type="text" name="dateDeFin" required id="id_dateDeFin" /></p>
+    <p>Dates au format JJ/MM/AAAA</p>
+    <p id="texte"><label for="id_emotion">Emotion:</label> <select name="emotion" id="id_emotion">
       <option value="TO" selected>Toutes</option>
 
       <option value="JO">Joie</option>
@@ -25,12 +24,10 @@
       <option value="PE">Peur</option>
 
 </select></p>
-    <button type="submit">Valider</button>
+    <button type="submit" id="centrerstats" id="texte" class="btn btn-primary">Valider</button>
   </form></p>
     {% else %}
     <p>Connectez-vous pour voir vos statistiques.</p>
     <a href="{% url 'login' %}">Se connecter</a>
     {% endif %}
 {% endblock %}
-
-</div>

@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.contrib.auth import login, authenticate
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
-from colonnes.models import Colonne, Tag, Emotion, Statistiques, Lien_Ut_Th
+from colonnes.models import Colonne, Tag, Emotion, Statistiques, Lien_Ut_Th, Conseil
 from colonnes.forms import ColonneForm, AjoutTagForm, AjoutEmotionForm, StatistiquesForm, EnvoieMailForm
 from .forms import SignUpForm
 from django.shortcuts import redirect
@@ -41,7 +41,44 @@ def nouvelle_entree(request):
         return render(request, 'colonnes/nouvelle_entree.html', {'formColonne': formColonne})
 
 def journal(request):
-    return render(request, 'colonnes/journal.html', {})
+    cols = Colonne.objects.filter(utilisateur=request.user).order_by('date_event')
+    #On instancie les variables globales:
+        #Les dates
+    dateDebut = datetime.now()
+    dateFin = datetime.now()
+        #Si la méthode POST est activée...
+    if request.method == "POST":
+        #... alors on déclare une variable comme étant le StatistiquesForm associé à cet envoi
+        formStatistiques = StatistiquesForm(request.POST)
+        #Si le form est valide on déroule !
+        if formStatistiques.is_valid():
+            stats = formStatistiques.save(commit=False)
+            #On sauvegarde dans la BDD, le temps de récupérer les valeurs des champs
+            stats.save()
+            #On récupère la date de début du formulaire
+            dateDebut = stats.dateDeDebut
+            #Comme l'heure est initialisée à minuit on récupère la date de fin du formulaire et on lui ajoute un jour
+            dateFin = stats.dateDeFin + timedelta(days=1)
+            #On récupère la valeur du champ émotion
+            emotionStats = stats.emotion
+            #On récupère les colonnes ayant une date contenue entre la date de début et la date de fin entrées dans le formulaire
+            cols = cols.filter(date_event__range=(dateDebut,dateFin))
+            #On sélectionne les colonnes présélectionnées contenant la même émotion que celle du formulaire pour les renvoyer sur la page
+            colsCherche = cols.filter(emotion='emotionStats')
+            #On supprime directement les valeurs dans la base de données pour ne pas créer de conflits potentiels lors d'une future utilisation
+            stats.delete()
+
+            #Si "Toutes" a été choisi dans l'onglet des émotions on envoie cols à la vue. cols qui contient toutes les colonnes entre les dates.
+            if emotionStats=="TO":
+                return render(request, 'colonnes/journal.html', {'cols':cols, 'formStatistiques':formStatistiques})
+
+            #Sinon on renvoie colsCherche
+            else:
+                return render(request, 'colonnes/journal.html', {'formStatistiques':formStatistiques, 'colsCherche':colsCherche})
+        return render(request, 'colonnes/journal.html', {'formStatistiques':formStatistiques})
+    else:
+        formStatistiques = StatistiquesForm()
+        return render(request, 'colonnes/journal.html', {'cols':cols,'formStatistiques':formStatistiques})
 
 def statistiques(request):
         #On instancie les variables globales:
@@ -56,12 +93,14 @@ def statistiques(request):
         listeEmotion = ["JO",'PE',"TR","CO","DE"]
             #Une liste qui contiendra les QuerySets à trier
         listeDonnees = [0, 0, 0, 0, 0]
-
+        #Si on envoie la méthode POST...
         if request.method == "POST":
+            #... alors on déclare une variable comme étant le StatistiquesForm associé à cet envoi
             formStatistiques = StatistiquesForm(request.POST)
+            #Si le form est valide on déroule !
             if formStatistiques.is_valid():
                 stats = formStatistiques.save(commit=False)
-                #On sauvegarde le temps de récupérer les valeurs des champs
+                #On sauvegarde dans la BDD, le temps de récupérer les valeurs des champs
                 stats.save()
                 #On récupère la date de début du formulaire
                 dateDebut = stats.dateDeDebut
@@ -69,7 +108,7 @@ def statistiques(request):
                 dateFin = stats.dateDeFin + timedelta(days=1)
                 #On récupère la valeur du champ émotion
                 emotionStats = stats.emotion
-                #On supprime directement les valeurs dans la base de données pour ne pas créer de conflits potentiels futurs
+                #On supprime directement les valeurs dans la base de données pour ne pas créer de conflits potentiels lors d'une future utilisation
                 stats.delete()
                 #... puis on récupère les colonnes ayant une date contenue entre la date de début et la date de fin entrées dans le formulaire
                 colPeriode = Colonne.objects.filter(date_event__range=(dateDebut,dateFin))
@@ -202,12 +241,12 @@ def statistiques(request):
                     plt.xticks([0.25,1.25,2.25,3.25,4.25], ['Joie', 'Peur', 'Tristesse', 'Colère', 'Dégoût'])
                     plt.legend((b1[0],b2[0]),("Pensée Automatique","Pensée Alternative"))
 
+                    #On retourne le graphique de statistiques comme HttpResponse
                     canvas = FigureCanvasAgg(f)
                     response = HttpResponse(content_type='image/png')
                     canvas.print_png(response)
                     matplotlib.pyplot.close(f)
 
-                #return render(request, 'colonnes/statistiques.html', {'moyIntAutJO':moyIntAutJO,'moyIntAltJO':moyIntAltJO,'moyIntAutPE':moyIntAutPE,'moyIntAltPE':moyIntAltPE,'moyIntAutTR':moyIntAltTR,'moyIntAutCO':moyIntAutCO,'moyIntAutDE':moyIntAutDE,'moyIntAltDE':moyIntAltDE,'formStatistiques':formStatistiques})
                 return response
 
             return render(request, 'colonnes/statistiques.html', {'formStatistiques':formStatistiques})
@@ -217,7 +256,8 @@ def statistiques(request):
             return render(request, 'colonnes/statistiques.html', {'formStatistiques':formStatistiques})
 
 def developpement_personnel(request):
-    return render(request, 'colonnes/developpement_personnel.html', {})
+    conseils = Conseil.objects.all()
+    return render(request, 'colonnes/developpement_personnel.html', {'conseils':conseils})
 
 def parametres(request):
     if request.method == "POST":
@@ -263,13 +303,9 @@ def envoiemail(request):
             message = 'Situation : \n ' + formEnvoieMail.cleaned_data['situation'] + '\n Pensée automatique : \n' + formEnvoieMail.cleaned_data['pensée_automatique'] + '\n Pensée alternative : \n' + formEnvoieMail.cleaned_data['pensée_alternative'] + '\n Emotion ressentie :\n' + formEnvoieMail.cleaned_data['emotion_ressentie'] + '\n Intensité automatique : \n' + str(formEnvoieMail.cleaned_data['intensité_automatique']) + '\n Intensité alternative : \n' + str(formEnvoieMail.cleaned_data['intensité_alternative'])
             sender = formEnvoieMail.cleaned_data['votre_email']
             recipients = formEnvoieMail.cleaned_data['email_therapeute']
-<<<<<<< HEAD
             email = mail.EmailMessage(subject, message, sender, [recipients])
             connection.send_messages([email])
-            connection.close()        
-=======
             send_mail(subject, message, sender, recipients)
->>>>>>> 5bcfcf7bfb425c77250d608232dd488b778a1587
             return render(request, 'colonnes/parametres.html', {})
     # sinon si l'utilisateur ne vient pas d'envoyer le formulaire
     else :
@@ -278,6 +314,6 @@ def envoiemail(request):
         therapeute = lien_th_ut.ther # à partir de l'objet récupéré, je récupère le thérapeute qui est une instance du modèle User
         pensees = Colonne.objects.filter(utilisateur=request.user)
         pensee = pensees[1]
-        date_ajout = 'Pensée du ' + str(pensee.date_ajout) 
+        date_ajout = 'Pensée du ' + str(pensee.date_ajout)
         formEnvoieMail = EnvoieMailForm(initial ={'votre_email': email, 'email_therapeute': therapeute.email, 'objet': date_ajout, 'situation': pensee.situation,'pensée_automatique': pensee.pensee_aut, 'pensée_alternative': pensee.pensee_alt, 'emotion_ressentie': pensee.emotion,'intensité_automatique': pensee.intensiteAut, 'intensité_alternative' : pensee.intensiteAlt})
     return render(request, 'colonnes/envoiemail.html', {'formEnvoieMail': formEnvoieMail})

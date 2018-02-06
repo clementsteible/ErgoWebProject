@@ -41,7 +41,6 @@ def nouvelle_entree(request):
         return render(request, 'colonnes/nouvelle_entree.html', {'formColonne': formColonne})
 
 def journal(request):
-    cols = Colonne.objects.filter(utilisateur=request.user).order_by('date_event')
     #On instancie les variables globales:
         #Les dates
     dateDebut = datetime.now()
@@ -50,6 +49,8 @@ def journal(request):
     if request.method == "POST":
         #... alors on déclare une variable comme étant le StatistiquesForm associé à cet envoi
         formStatistiques = StatistiquesForm(request.POST)
+        #On instancie les colonnes de l'utilisateur connecté
+        cols = Colonne.objects.filter(utilisateur=request.user).order_by('date_event')
         #Si le form est valide on déroule !
         if formStatistiques.is_valid():
             stats = formStatistiques.save(commit=False)
@@ -78,15 +79,13 @@ def journal(request):
         return render(request, 'colonnes/journal.html', {'formStatistiques':formStatistiques})
     else:
         formStatistiques = StatistiquesForm()
-        return render(request, 'colonnes/journal.html', {'cols':cols,'formStatistiques':formStatistiques})
+        return render(request, 'colonnes/journal.html', {'formStatistiques':formStatistiques})
 
 def statistiques(request):
         #On instancie les variables globales:
             #Les dates
         dateDebut = datetime.now()
         dateFin = datetime.now()
-            #Les colonnes de l'utilisateur connecté
-        colPeriode = Colonne.objects.filter(utilisateur=request.user)
             #Une variable String à vide
         emotionStats =''
             #Une liste contenant les codes ""émotions", ces codes correspondent respectivement à : Joie, Peur, Tristess, Colère, Dégoût
@@ -97,6 +96,8 @@ def statistiques(request):
         if request.method == "POST":
             #... alors on déclare une variable comme étant le StatistiquesForm associé à cet envoi
             formStatistiques = StatistiquesForm(request.POST)
+            #On instancie les colonnes de l'utilisateur connecté
+            colPeriode = Colonne.objects.filter(utilisateur=request.user)
             #Si le form est valide on déroule !
             if formStatistiques.is_valid():
                 stats = formStatistiques.save(commit=False)
@@ -288,7 +289,7 @@ def signup(request):
         formSignUp = SignUpForm(request.POST)
         if formSignUp.is_valid():
             formSignUp.save()
-            return render(request, 'colonnes/login.html',{})
+            return render(request, 'colonnes/deverouillage.html',{})
     else:
         formSignUp = SignUpForm()
     return render(request, 'colonnes/signup.html', {'formSignUp': formSignUp})
@@ -305,7 +306,7 @@ def envoiemail(request):
             recipients = formEnvoieMail.cleaned_data['email_therapeute']
             email = mail.EmailMessage(subject, message, sender, [recipients])
             connection.send_messages([email])
-            send_mail(subject, message, sender, recipients)
+            connection.close()
             return render(request, 'colonnes/parametres.html', {})
     # sinon si l'utilisateur ne vient pas d'envoyer le formulaire
     else :

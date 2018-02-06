@@ -1,5 +1,4 @@
 {% extends 'colonnes/base.html' %}
-<div>
 
 {% block content %}
     {% if user.is_authenticated %}
@@ -8,7 +7,7 @@
    	<form method="POST">
 	    {% csrf_token %}
 	    {{ formEnvoieMail.as_p }}
-	    <button class="boutons" type="submit">Envoyer mail</button>
+	    <p><button id="envoieMail" class="btn btn-primary" type="submit">Envoyer mail</button></p>
   	</form>
 
 	</div>
@@ -18,5 +17,3 @@
     <a href="{% url 'login' %}">Se connecter</a>
     {% endif %}
 {% endblock %}
-
-</div>

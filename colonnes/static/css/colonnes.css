@@ -294,6 +294,12 @@ font-family: 'Roboto Slab', serif;
   left:50px;
 }
 
+#envoieMail{
+  text-align: center;
+  position:relative;
+  left:120px;
+}
+
 #boutontherapeute{
     position:relative;
     left:60px;

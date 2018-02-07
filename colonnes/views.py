@@ -313,7 +313,7 @@ def envoiemail(request):
         lien_th_ut = Lien_Ut_Th.objects.get(pati=request.user) #je récupère l'objet du lien entre lui et son thérapeute
         therapeute = lien_th_ut.ther # à partir de l'objet récupéré, je récupère le thérapeute qui est une instance du modèle User
         pensees = Colonne.objects.filter(utilisateur=request.user)
-        pensee = pensees[1]
+        pensee = pensees[0]
         date_ajout = 'Pensée du ' + str(pensee.date_ajout)
         formEnvoieMail = EnvoieMailForm(initial ={'votre_email': email, 'email_therapeute': therapeute.email, 'objet': date_ajout, 'situation': pensee.situation,'pensée_automatique': pensee.pensee_aut, 'pensée_alternative': pensee.pensee_alt, 'emotion_ressentie': pensee.emotion,'intensité_automatique': pensee.intensiteAut, 'intensité_alternative' : pensee.intensiteAlt})
     return render(request, 'colonnes/envoiemail.html', {'formEnvoieMail': formEnvoieMail})
